@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Shield, Award, ExternalLink, Heart, Code, Palette, Music } from 'lucide-react'
+import { Shield, Award, ExternalLink, Heart, Code, Palette } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
 import { Heading } from '../components/ui/Heading'

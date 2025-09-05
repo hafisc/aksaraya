@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { type ReactNode, type ElementType } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '../../lib/utils'
 import { fadeUp } from '../../lib/motion'
@@ -18,7 +18,7 @@ export function Heading({
   cultural = false,
   gradient = false 
 }: HeadingProps) {
-  const Tag = `h${level}` as keyof JSX.IntrinsicElements
+  const Tag = `h${level}` as ElementType
   
   const baseClasses = {
     1: 'text-4xl sm:text-5xl lg:text-6xl font-bold',

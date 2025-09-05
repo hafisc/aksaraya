@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion"
+import { type Variants } from "framer-motion"
 
 // Motion presets for consistent animations
 export const fadeUp: Variants = {

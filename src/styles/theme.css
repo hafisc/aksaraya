@@ -19,9 +19,6 @@
   --font-noto: 'Noto Serif', serif;
 }
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
-
 /* Base Typography */
 body {
   font-family: var(--font-jakarta);

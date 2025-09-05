@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '../../lib/utils'
 import { fadeUp } from '../../lib/motion'
@@ -7,14 +7,14 @@ interface SectionProps {
   children: ReactNode
   className?: string
   id?: string
-  background?: 'default' | 'pattern' | 'gradient'
+  background?: 'default' | 'pattern' | 'brown'
 }
 
 export function Section({ children, className, id, background = 'default' }: SectionProps) {
   const backgroundClasses = {
     default: '',
     pattern: 'pattern-batik',
-    gradient: 'bg-gradient-to-br from-coklat-gradient-start via-coklat-gradient-end to-coklat-utama'
+    brown: 'bg-coklat-utama'
   }
 
   return (

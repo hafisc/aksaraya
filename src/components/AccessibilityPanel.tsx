@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Settings, Eye, EyeOff, Zap, ZapOff, 
+  Settings, Eye, Zap, ZapOff, 
   Type, Contrast, X, Check 
 } from 'lucide-react'
 import { useAccessibility } from '../hooks/useAccessibility'

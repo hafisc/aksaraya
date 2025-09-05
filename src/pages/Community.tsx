@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   User, Trophy, Target, Calendar, Star, Award, 
-  TrendingUp, Users, Clock, Zap, BookOpen, 
+  TrendingUp, Users, Zap, BookOpen, 
   PenTool, Brain, Map, Share2, Medal
 } from 'lucide-react'
 import { Container } from '../components/ui/Container'
@@ -15,14 +15,12 @@ import {
   communityChallenges, 
   leaderboards, 
   badges,
-  type UserProfile,
   type CommunityChallenge,
   type Badge 
 } from '../data/community'
 
 export function Community() {
   const [activeTab, setActiveTab] = useState<'profile' | 'challenges' | 'leaderboard' | 'achievements'>('profile')
-  const [selectedChallenge, setSelectedChallenge] = useState<CommunityChallenge | null>(null)
 
   const user = sampleUser
   const weeklyLeaderboard = leaderboards.find(l => l.period === 'weekly' && l.category === 'xp')
@@ -264,8 +262,7 @@ export function Community() {
                     transition={{ delay: index * 0.1 }}
                   >
                     <Card 
-                      className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                      onClick={() => setSelectedChallenge(challenge)}
+                      className="p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-2">

@@ -1,4 +1,4 @@
-import { lazy, Suspense, ComponentType } from 'react'
+import { lazy, Suspense, type ComponentType } from 'react'
 import { motion } from 'framer-motion'
 
 interface LazyLoadProps {

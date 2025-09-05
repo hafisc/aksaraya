@@ -29,7 +29,7 @@ export function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <Section background="gradient" className="relative overflow-hidden">
+      <Section background="brown" className="relative overflow-hidden">
         <Container className="relative z-10">
           <motion.div
             variants={stagger}
@@ -213,7 +213,7 @@ export function Home() {
       </Section>
 
       {/* Call to Action */}
-      <Section background="gradient">
+      <Section background="brown">
         <Container>
           <motion.div
             variants={stagger}
