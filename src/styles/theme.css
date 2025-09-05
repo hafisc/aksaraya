@@ -1,0 +1,62 @@
+/* Brown & White Cultural Color Palette */
+:root {
+  /* Primary Colors */
+  --coklat-utama: #8B4513;     /* Primary brown */
+  --coklat-muda: #D2B48C;      /* Light brown */
+  --coklat-tua: #654321;       /* Dark brown */
+  --krem-hangat: #F5DEB3;      /* Warm cream */
+  --putih-bersih: #FFFFFF;     /* Pure white */
+  --coklat-gradient-start: #CD853F; /* Gradient start */
+  --coklat-gradient-end: #A0522D;   /* Gradient end */
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--coklat-gradient-start) 0%, var(--coklat-gradient-end) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--coklat-muda) 0%, var(--krem-hangat) 100%);
+  --gradient-hero: linear-gradient(135deg, var(--coklat-gradient-start) 0%, var(--coklat-gradient-end) 50%, var(--coklat-utama) 100%);
+  
+  /* Typography */
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+  --font-noto: 'Noto Serif', serif;
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Base Typography */
+body {
+  font-family: var(--font-jakarta);
+  background-color: var(--putih-bersih);
+  color: var(--coklat-utama);
+}
+
+.font-cultural {
+  font-family: var(--font-noto);
+}
+
+/* Cultural Pattern Background */
+.pattern-batik {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D2B48C' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3Ccircle cx='50' cy='10' r='1'/%3E%3Ccircle cx='10' cy='50' r='1'/%3E%3Ccircle cx='50' cy='50' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Glow effects */
+.glow-coklat {
+  box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-coklat:hover {
+  box-shadow: 0 0 20px rgba(139, 69, 19, 0.5), 0 0 30px rgba(139, 69, 19, 0.3);
+}
+
+/* Ornamental borders */
+.border-ukir {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--putih-bersih), var(--putih-bersih)) padding-box,
+              linear-gradient(45deg, var(--coklat-muda), var(--coklat-utama)) border-box;
+  transition: all 0.3s ease;
+}
+
+.border-ukir:hover {
+  background: linear-gradient(var(--putih-bersih), var(--putih-bersih)) padding-box,
+              linear-gradient(45deg, var(--coklat-utama), var(--coklat-utama)) border-box;
+}

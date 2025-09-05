@@ -1,0 +1,14 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="batik" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="2" fill="#f6c453" fill-opacity="0.03"/>
+      <circle cx="10" cy="10" r="1" fill="#f6c453" fill-opacity="0.02"/>
+      <circle cx="50" cy="10" r="1" fill="#f6c453" fill-opacity="0.02"/>
+      <circle cx="10" cy="50" r="1" fill="#f6c453" fill-opacity="0.02"/>
+      <circle cx="50" cy="50" r="1" fill="#f6c453" fill-opacity="0.02"/>
+      <path d="M15,15 Q20,10 25,15 T35,15" stroke="#2f7a5b" stroke-width="0.5" fill="none" opacity="0.02"/>
+      <path d="M25,45 Q30,40 35,45 T45,45" stroke="#2f7a5b" stroke-width="0.5" fill="none" opacity="0.02"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#batik)"/>
+</svg>
