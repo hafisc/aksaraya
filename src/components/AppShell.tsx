@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom'
 import { Navigation } from './Navigation'
-import { AccessibilityPanel } from './AccessibilityPanel'
 
 export function AppShell() {
   return (
@@ -9,15 +8,14 @@ export function AppShell() {
       <main>
         <Outlet />
       </main>
-      <AccessibilityPanel />
       <footer className="bg-[#592B18] text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm">
-              2024 Aksaraya. Kredit sumber glyph: Unicode Consortium, berbagai komunitas pelestari aksara.
+            © 2025 Aksaraya. Hak Cipta Dilindungi.
             </p>
             <p className="text-xs mt-2 text-white/70">
-              Lisensi: Creative Commons Attribution-ShareAlike 4.0 International
+              hafis.cloud
             </p>
           </div>
         </div>

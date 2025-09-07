@@ -1,13 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, RotateCcw, Palette, Save, Award, Target } from 'lucide-react'
+import { ArrowLeft, RotateCcw, Palette, Save, Award, Target, PenTool, Sparkles } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
 import { Heading } from '../components/ui/Heading'
 import { Card } from '../components/ui/Card'
-import { IconBadge } from '../components/ui/IconBadge'
-import { PitaAksen } from '../components/ui/PitaAksen'
 import { aksaraScripts } from '../data/aksara'
 import { fadeUp, stagger } from '../lib/motion'
 import { cn } from '../lib/utils'
@@ -177,20 +175,28 @@ export function Practice() {
   }
 
   return (
-    <div className="min-h-screen bg-gabus-pualam">
+    <div className="min-h-screen bg-[#592B18]">
       {/* Header */}
-      <Section className="bg-gradient-to-br from-indigo-lurik via-sogan-batik to-jade-tenun">
-        <Container>
+      <Section className="bg-[#592B18] relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-16 left-20 text-8xl text-white rotate-12">✍️</div>
+          <div className="absolute top-32 right-16 text-6xl text-white -rotate-12">{selectedCharacter || 'ꦲ'}</div>
+          <div className="absolute bottom-20 left-1/4 text-7xl text-white rotate-45">📝</div>
+          <div className="absolute bottom-16 right-20 text-5xl text-white -rotate-30">🎯</div>
+        </div>
+        
+        <Container className="relative z-10">
           <motion.div
             variants={stagger}
             initial="initial"
             animate="animate"
-            className="py-16"
+            className="py-20"
           >
             <motion.div variants={fadeUp} className="mb-8">
               <Link 
                 to={script ? `/learn/${script.id}` : "/learn"}
-                className="inline-flex items-center gap-2 text-gabus-pualam hover:text-giring-emas transition-colors"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-white hover:bg-white/20 transition-all duration-300"
               >
                 <ArrowLeft className="w-5 h-5" />
                 {script ? `Kembali ke ${script.name}` : 'Kembali ke Belajar'}
@@ -198,210 +204,269 @@ export function Practice() {
             </motion.div>
 
             <motion.div variants={fadeUp} className="text-center">
-              <PitaAksen length="medium" className="mx-auto mb-6" />
-              <Heading level={1} className="text-gabus-pualam mb-4" cultural>
+              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
+                <PenTool className="w-6 h-6 text-white" />
+                <span className="text-white font-medium">Latihan Interaktif</span>
+              </div>
+              <Heading level={1} className="text-white mb-6 text-4xl lg:text-5xl" cultural>
                 Latihan Goresan {script?.name || 'Aksara'}
               </Heading>
-              <p className="text-xl text-gabus-pualam/90 max-w-2xl mx-auto">
-                Praktikkan menulis aksara dengan panduan interaktif dan dapatkan umpan balik langsung
+              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                Praktikkan menulis aksara dengan panduan interaktif dan dapatkan umpan balik langsung untuk meningkatkan kemampuan Anda
               </p>
             </motion.div>
           </motion.div>
         </Container>
       </Section>
 
-      <Section>
+      <Section className="bg-[#592B18]">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Character Selection */}
-            <div className="lg:col-span-1">
-              <Card>
-                <h3 className="text-lg font-semibold text-indigo-lurik mb-4 font-cultural">
-                  Pilih Aksara
-                </h3>
-                <div className="grid grid-cols-3 gap-2">
-                  {practiceCharacters.map((char) => (
-                    <button
-                      key={char}
-                      onClick={() => {
-                        setSelectedCharacter(char)
-                        clearCanvas()
-                      }}
-                      className={cn(
-                        "aspect-square rounded-lg border-2 flex items-center justify-center text-2xl transition-all",
-                        selectedCharacter === char
-                          ? "border-giring-emas bg-giring-emas/10 text-giring-emas"
-                          : "border-jade-tenun/30 text-indigo-lurik hover:border-giring-emas hover:bg-giring-emas/5"
-                      )}
-                    >
-                      {char}
-                    </button>
-                  ))}
-                </div>
+          <motion.div variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }}>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+              {/* Character Selection */}
+              <motion.div variants={fadeUp} className="lg:col-span-1">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                  <Card className="relative bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <h3 className="text-lg font-semibold text-white mb-6 font-cultural flex items-center gap-2">
+                      <Target className="w-5 h-5" />
+                      Pilih Aksara
+                    </h3>
+                    <div className="grid grid-cols-3 gap-3">
+                      {practiceCharacters.map((char) => (
+                        <motion.button
+                          key={char}
+                          onClick={() => {
+                            setSelectedCharacter(char)
+                            clearCanvas()
+                          }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className={cn(
+                            "aspect-square rounded-xl border-2 flex items-center justify-center text-2xl transition-all duration-300 font-cultural",
+                            selectedCharacter === char
+                              ? "border-white bg-white/20 text-white shadow-lg"
+                              : "border-white/30 text-white/80 hover:border-white hover:bg-white/10"
+                          )}
+                        >
+                          {char}
+                        </motion.button>
+                      ))}
+                    </div>
 
-                {/* Progress */}
-                <div className="mt-6">
-                  <h4 className="text-sm font-medium text-indigo-lurik mb-3">Progress</h4>
-                  <div className="space-y-2">
-                    {practiceCharacters.slice(0, 6).map((char) => {
-                      const progress = JSON.parse(localStorage.getItem('aksara-progress') || '{}')
-                      const charScore = progress[script?.id || 'default']?.[char] || 0
-                      return (
-                        <div key={char} className="flex items-center gap-2">
-                          <span className="text-lg">{char}</span>
-                          <div className="flex-1 bg-jade-tenun/20 rounded-full h-2">
-                            <div 
-                              className="bg-giring-emas h-2 rounded-full transition-all"
-                              style={{ width: `${charScore}%` }}
-                            />
-                          </div>
-                          <span className="text-xs text-sogan-batik">{charScore}%</span>
+                    {/* Progress */}
+                    <div className="mt-8">
+                      <h4 className="text-sm font-medium text-white mb-4 flex items-center gap-2">
+                        <Award className="w-4 h-4" />
+                        Progress
+                      </h4>
+                      <div className="space-y-3">
+                        {practiceCharacters.slice(0, 6).map((char) => {
+                          const progress = JSON.parse(localStorage.getItem('aksara-progress') || '{}')
+                          const charScore = progress[script?.id || 'default']?.[char] || 0
+                          return (
+                            <div key={char} className="flex items-center gap-3">
+                              <span className="text-lg text-white font-cultural w-8">{char}</span>
+                              <div className="flex-1 bg-white/20 rounded-full h-2">
+                                <motion.div 
+                                  className="bg-white h-2 rounded-full transition-all"
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${charScore}%` }}
+                                  transition={{ duration: 0.5 }}
+                                />
+                              </div>
+                              <span className="text-xs text-white/70 w-10 text-right">{charScore}%</span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </motion.div>
+
+              {/* Canvas Area */}
+              <motion.div variants={fadeUp} className="lg:col-span-2">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                  <Card className="relative bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-lg font-semibold text-white font-cultural flex items-center gap-2">
+                        <PenTool className="w-5 h-5" />
+                        Area Latihan
+                      </h3>
+                      <div className="flex items-center gap-3">
+                        <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                          <span className="text-sm text-white/80">Target:</span>
                         </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              </Card>
-            </div>
+                        <div className="w-12 h-12 bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center">
+                          <span className="text-2xl text-white font-cultural">{selectedCharacter}</span>
+                        </div>
+                      </div>
+                    </div>
 
-            {/* Canvas Area */}
-            <div className="lg:col-span-2">
-              <Card>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-indigo-lurik font-cultural">
-                    Area Latihan
-                  </h3>
-                  <div className="flex items-center gap-2">
-                    <IconBadge size="sm" variant="cultural">
-                      <Target className="w-4 h-4" />
-                    </IconBadge>
-                    <span className="text-3xl text-giring-emas">{selectedCharacter}</span>
-                  </div>
-                </div>
-
-                {/* Canvas */}
-                <div className="relative bg-gabus-pualam border-2 border-jade-tenun/20 rounded-lg overflow-hidden">
-                  <canvas
-                    ref={canvasRef}
-                    width={600}
-                    height={400}
-                    className="block w-full h-auto cursor-crosshair"
-                    onMouseDown={startDrawing}
-                    onMouseMove={draw}
-                    onMouseUp={stopDrawing}
-                    onMouseLeave={stopDrawing}
-                  />
-                  
-                  {/* Template Character (Background) */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="text-9xl text-jade-tenun/10 font-cultural select-none">
-                      {selectedCharacter}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Controls */}
-                <div className="flex items-center justify-between mt-4">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                      <Palette className="w-4 h-4 text-sogan-batik" />
-                      <input
-                        type="range"
-                        min="2"
-                        max="20"
-                        value={brushSize}
-                        onChange={(e) => setBrushSize(Number(e.target.value))}
-                        className="w-20"
+                    {/* Canvas */}
+                    <div className="relative bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl overflow-hidden shadow-2xl">
+                      <canvas
+                        ref={canvasRef}
+                        width={600}
+                        height={400}
+                        className="block w-full h-auto cursor-crosshair"
+                        onMouseDown={startDrawing}
+                        onMouseMove={draw}
+                        onMouseUp={stopDrawing}
+                        onMouseLeave={stopDrawing}
                       />
-                      <span className="text-sm text-sogan-batik">{brushSize}px</span>
+                      
+                      {/* Template Character (Background) */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-9xl text-white/5 font-cultural select-none">
+                          {selectedCharacter}
+                        </span>
+                      </div>
+                      
+                      {/* Grid lines for guidance */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute top-1/2 left-0 right-0 h-px bg-white/10"></div>
+                        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10"></div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={undoLastStroke}
-                      className="px-3 py-2 text-sm bg-sogan-batik text-gabus-pualam rounded-lg hover:bg-sogan-batik/80 transition-colors"
-                    >
-                      Undo
-                    </button>
-                    <button
-                      onClick={clearCanvas}
-                      className="px-3 py-2 text-sm bg-jade-tenun text-gabus-pualam rounded-lg hover:bg-jade-tenun/80 transition-colors flex items-center gap-1"
-                    >
-                      <RotateCcw className="w-4 h-4" />
-                      Reset
-                    </button>
-                    <button
-                      onClick={saveDrawing}
-                      className="px-3 py-2 text-sm bg-indigo-lurik text-gabus-pualam rounded-lg hover:bg-indigo-lurik/80 transition-colors flex items-center gap-1"
-                    >
-                      <Save className="w-4 h-4" />
-                      Simpan
-                    </button>
-                  </div>
+                    {/* Controls */}
+                    <div className="flex items-center justify-between mt-6">
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                          <Palette className="w-4 h-4 text-white" />
+                          <input
+                            type="range"
+                            min="2"
+                            max="20"
+                            value={brushSize}
+                            onChange={(e) => setBrushSize(Number(e.target.value))}
+                            className="w-20 accent-white"
+                          />
+                          <span className="text-sm text-white/80">{brushSize}px</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <motion.button
+                          onClick={undoLastStroke}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-4 py-2 text-sm bg-white/20 text-white rounded-lg hover:bg-white/30 transition-all duration-300 backdrop-blur-sm"
+                        >
+                          Undo
+                        </motion.button>
+                        <motion.button
+                          onClick={clearCanvas}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-4 py-2 text-sm bg-white/20 text-white rounded-lg hover:bg-white/30 transition-all duration-300 flex items-center gap-2 backdrop-blur-sm"
+                        >
+                          <RotateCcw className="w-4 h-4" />
+                          Reset
+                        </motion.button>
+                        <motion.button
+                          onClick={saveDrawing}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-4 py-2 text-sm bg-white text-[#592B18] rounded-lg hover:bg-white/90 transition-all duration-300 flex items-center gap-2 font-medium"
+                        >
+                          <Save className="w-4 h-4" />
+                          Simpan
+                        </motion.button>
+                      </div>
+                    </div>
+                  </Card>
                 </div>
-              </Card>
-            </div>
+              </motion.div>
 
-            {/* Evaluation Panel */}
-            <div className="lg:col-span-1">
-              <Card>
-                <h3 className="text-lg font-semibold text-indigo-lurik mb-4 font-cultural">
-                  Evaluasi
-                </h3>
+              {/* Evaluation Panel */}
+              <motion.div variants={fadeUp} className="lg:col-span-1">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                  <Card className="relative bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300">
+                    <h3 className="text-lg font-semibold text-white mb-6 font-cultural flex items-center gap-2">
+                      <Award className="w-5 h-5" />
+                      Evaluasi
+                    </h3>
 
-                <button
-                  onClick={evaluateDrawing}
-                  disabled={strokes.length === 0}
-                  className="w-full bg-giring-emas text-indigo-lurik px-4 py-3 rounded-lg font-semibold hover:bg-giring-emas/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  <Award className="w-4 h-4" />
-                  Nilai Goresan
-                </button>
+                    <motion.button
+                      onClick={evaluateDrawing}
+                      disabled={strokes.length === 0}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-white text-[#592B18] px-4 py-3 rounded-xl font-semibold hover:bg-white/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
+                    >
+                      <Award className="w-4 h-4" />
+                      Nilai Goresan
+                    </motion.button>
 
-                {score !== null && (
-                  <motion.div
-                    variants={fadeUp}
-                    initial="initial"
-                    animate="animate"
-                    className="mt-6 text-center"
-                  >
-                    <div className="text-4xl font-bold text-giring-emas mb-2">
-                      {score}%
-                    </div>
-                    <div className="text-sm text-sogan-batik mb-4">
-                      {feedback}
-                    </div>
-                    
-                    {/* Score Bar */}
-                    <div className="w-full bg-jade-tenun/20 rounded-full h-3 mb-4">
-                      <motion.div 
-                        className="bg-giring-emas h-3 rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${score}%` }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                      />
-                    </div>
-
-                    {score >= 80 && (
-                      <div className="text-2xl mb-2">🎉</div>
+                    {score !== null && (
+                      <motion.div
+                        variants={fadeUp}
+                        initial="initial"
+                        animate="animate"
+                        className="mt-8 text-center"
+                      >
+                        <div className="relative mb-6">
+                          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center mb-4 shadow-2xl">
+                            <div className="text-2xl font-bold text-white">
+                              {score}%
+                            </div>
+                          </div>
+                          {score >= 80 && (
+                            <div className="absolute -top-2 -right-2 text-2xl animate-bounce">🎉</div>
+                          )}
+                        </div>
+                        
+                        <div className="text-sm text-white/80 mb-6 bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                          {feedback}
+                        </div>
+                        
+                        {/* Score Bar */}
+                        <div className="w-full bg-white/20 rounded-full h-3 mb-6">
+                          <motion.div 
+                            className="bg-white h-3 rounded-full shadow-lg"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${score}%` }}
+                            transition={{ duration: 1, ease: "easeOut" }}
+                          />
+                        </div>
+                      </motion.div>
                     )}
-                  </motion.div>
-                )}
 
-                {/* Tips */}
-                <div className="mt-6 p-4 bg-jade-tenun/10 rounded-lg">
-                  <h4 className="text-sm font-medium text-indigo-lurik mb-2">Tips:</h4>
-                  <ul className="text-xs text-sogan-batik space-y-1">
-                    <li>• Ikuti urutan goresan yang benar</li>
-                    <li>• Perhatikan proporsi dan bentuk</li>
-                    <li>• Gunakan gerakan yang halus</li>
-                    <li>• Latihan rutin untuk hasil terbaik</li>
-                  </ul>
+                    {/* Tips */}
+                    <div className="mt-8 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                      <h4 className="text-sm font-medium text-white mb-3 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4" />
+                        Tips Latihan:
+                      </h4>
+                      <ul className="text-xs text-white/80 space-y-2">
+                        <li className="flex items-start gap-2">
+                          <span className="text-white/60">•</span>
+                          <span>Ikuti urutan goresan yang benar</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-white/60">•</span>
+                          <span>Perhatikan proporsi dan bentuk</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-white/60">•</span>
+                          <span>Gunakan gerakan yang halus</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-white/60">•</span>
+                          <span>Latihan rutin untuk hasil terbaik</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </Card>
                 </div>
-              </Card>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </Container>
       </Section>
     </div>

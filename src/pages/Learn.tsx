@@ -1,13 +1,11 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Search, Filter, MapPin, Calendar, BookOpen } from 'lucide-react'
+import { Search, Filter, MapPin, Calendar, BookOpen, Sparkles } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
 import { Heading } from '../components/ui/Heading'
 import { Card } from '../components/ui/Card'
-import { IconBadge } from '../components/ui/IconBadge'
-import { PitaAksen } from '../components/ui/PitaAksen'
 import { aksaraScripts } from '../data/aksara'
 import { fadeUp, stagger } from '../lib/motion'
 import { cn } from '../lib/utils'
@@ -48,111 +46,98 @@ export function Learn() {
   }, [searchTerm, selectedRegion, selectedPeriod, selectedCategory])
 
   return (
-    <div className="min-h-screen bg-gabus-pualam">
-      {/* Header Section */}
-      <Section className="bg-gradient-to-br from-indigo-lurik via-sogan-batik to-jade-tenun">
+    <div className="min-h-screen bg-[#592B18]">
+     
+
+      {/* Search and Filter Section */}
+      <Section className="bg-[#592B18] py-8">
         <Container>
-          <motion.div
-            variants={stagger}
-            initial="initial"
-            animate="animate"
-            className="text-center py-16"
-          >
-            <motion.div variants={fadeUp} className="mb-6">
-              <PitaAksen length="long" className="mx-auto mb-8" />
+          <motion.div variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }}>
+            <motion.div variants={fadeUp} className="mb-8">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                  {/* Search */}
+                  <div className="lg:col-span-2 relative">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+                    <input
+                      type="text"
+                      placeholder="Cari aksara, wilayah, atau deskripsi..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-white/30 focus:border-white/40 text-white placeholder-white/60 backdrop-blur-sm"
+                    />
+                  </div>
+
+                  {/* Region Filter */}
+                  <div className="relative">
+                    <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+                    <select
+                      value={selectedRegion}
+                      onChange={(e) => setSelectedRegion(e.target.value)}
+                      className="w-full pl-12 pr-8 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-white/30 focus:border-white/40 text-white appearance-none backdrop-blur-sm"
+                    >
+                      <option value="all" className="bg-[#592B18] text-white">Semua Wilayah</option>
+                      {regions.map(region => (
+                        <option key={region} value={region} className="bg-[#592B18] text-white">{region}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Period Filter */}
+                  <div className="relative">
+                    <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+                    <select
+                      value={selectedPeriod}
+                      onChange={(e) => setSelectedPeriod(e.target.value)}
+                      className="w-full pl-12 pr-8 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-white/30 focus:border-white/40 text-white appearance-none backdrop-blur-sm"
+                    >
+                      <option value="all" className="bg-[#592B18] text-white">Semua Periode</option>
+                      {periods.map(period => (
+                        <option key={period} value={period} className="bg-[#592B18] text-white">{period}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Category Filter */}
+                  <div className="relative">
+                    <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+                    <select
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      className="w-full pl-12 pr-8 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-white/30 focus:border-white/40 text-white appearance-none backdrop-blur-sm"
+                    >
+                      <option value="all" className="bg-[#592B18] text-white">Semua Kategori</option>
+                      {categories.map(category => (
+                        <option key={category} value={category} className="bg-[#592B18] text-white">
+                          {category === 'brahmi' ? 'Brahmi' : 
+                           category === 'arabic' ? 'Arab' : 
+                           category === 'indigenous' ? 'Asli' : category}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
             </motion.div>
-            
-            <Heading level={1} className="text-gabus-pualam mb-6" cultural>
-              Jelajahi Aksara Nusantara
-            </Heading>
-            
-            <motion.p 
-              variants={fadeUp}
-              className="text-xl text-gabus-pualam/90 mb-8 max-w-3xl mx-auto leading-relaxed"
-            >
-              Temukan keragaman sistem tulisan tradisional Indonesia dari berbagai periode dan wilayah
-            </motion.p>
+
+            {/* Results Count */}
+            <motion.div variants={fadeUp} className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 text-white/80">
+                <div className="w-8 h-px bg-gradient-to-r from-transparent to-white/30"></div>
+                <Sparkles className="w-4 h-4" />
+                <span className="text-sm font-medium">
+                  Menampilkan {filteredScripts.length} dari {aksaraScripts.length} aksara
+                </span>
+                <Sparkles className="w-4 h-4" />
+                <div className="w-8 h-px bg-gradient-to-l from-transparent to-white/30"></div>
+              </div>
+            </motion.div>
           </motion.div>
         </Container>
       </Section>
 
-      {/* Search and Filter Section */}
-      <Section className="py-8 border-b border-jade-tenun/20">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {/* Search */}
-            <div className="lg:col-span-2 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sogan-batik w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Cari aksara, wilayah, atau deskripsi..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-jade-tenun/30 rounded-lg focus:ring-2 focus:ring-giring-emas focus:border-giring-emas bg-gabus-pualam text-indigo-lurik"
-              />
-            </div>
-
-            {/* Region Filter */}
-            <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sogan-batik w-5 h-5" />
-              <select
-                value={selectedRegion}
-                onChange={(e) => setSelectedRegion(e.target.value)}
-                className="w-full pl-10 pr-8 py-3 border border-jade-tenun/30 rounded-lg focus:ring-2 focus:ring-giring-emas focus:border-giring-emas bg-gabus-pualam text-indigo-lurik appearance-none"
-              >
-                <option value="all">Semua Wilayah</option>
-                {regions.map(region => (
-                  <option key={region} value={region}>{region}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Period Filter */}
-            <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sogan-batik w-5 h-5" />
-              <select
-                value={selectedPeriod}
-                onChange={(e) => setSelectedPeriod(e.target.value)}
-                className="w-full pl-10 pr-8 py-3 border border-jade-tenun/30 rounded-lg focus:ring-2 focus:ring-giring-emas focus:border-giring-emas bg-gabus-pualam text-indigo-lurik appearance-none"
-              >
-                <option value="all">Semua Periode</option>
-                {periods.map(period => (
-                  <option key={period} value={period}>{period}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Category Filter */}
-            <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sogan-batik w-5 h-5" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full pl-10 pr-8 py-3 border border-jade-tenun/30 rounded-lg focus:ring-2 focus:ring-giring-emas focus:border-giring-emas bg-gabus-pualam text-indigo-lurik appearance-none"
-              >
-                <option value="all">Semua Kategori</option>
-                {categories.map(category => (
-                  <option key={category} value={category}>
-                    {category === 'brahmi' ? 'Brahmi' : 
-                     category === 'arabic' ? 'Arab' : 
-                     category === 'indigenous' ? 'Asli' : category}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Results Count */}
-          <div className="mt-4 text-center">
-            <p className="text-sogan-batik">
-              Menampilkan {filteredScripts.length} dari {aksaraScripts.length} aksara
-            </p>
-          </div>
-        </Container>
-      </Section>
-
       {/* Scripts Grid */}
-      <Section>
+      <Section className="bg-[#592B18]">
         <Container>
           <motion.div 
             variants={stagger}
@@ -162,72 +147,95 @@ export function Learn() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {filteredScripts.map((script) => (
-              <motion.div key={script.id} variants={fadeUp}>
+              <motion.div 
+                key={script.id} 
+                variants={fadeUp}
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
                 <Link to={`/learn/${script.id}`}>
-                  <Card 
-                    ornamental 
-                    hover 
-                    className="group h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                  >
-                    {/* Header with Glyph */}
-                    <div className="text-center mb-6">
-                      <motion.div
-                        className="text-6xl mb-4 text-indigo-lurik group-hover:text-giring-emas transition-colors duration-300"
-                        whileHover={{ 
-                          scale: 1.1,
-                          rotate: [0, -5, 5, 0],
-                          transition: { duration: 0.3 }
-                        }}
-                      >
-                        {script.glyph}
-                      </motion.div>
+                  <div className="relative group">
+                    {/* Glowing background effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    
+                    <Card className="relative bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 overflow-hidden h-full">
+                      {/* Decorative corner elements */}
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full"></div>
+                      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-white/5 to-transparent rounded-tr-full"></div>
                       
-                      <h3 className="text-xl font-semibold text-indigo-lurik mb-2 font-cultural">
-                        {script.name}
-                      </h3>
-                      
-                      <div className="flex items-center justify-center gap-2 text-sm text-sogan-batik mb-3">
-                        <MapPin className="w-4 h-4" />
-                        <span>{script.region}</span>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="space-y-4">
-                      <p className="text-sm text-jade-tenun leading-relaxed">
-                        {script.description}
-                      </p>
-
-                      {/* Metadata */}
-                      <div className="grid grid-cols-2 gap-4 text-xs">
-                        <div>
-                          <span className="font-medium text-indigo-lurik">Periode:</span>
-                          <p className="text-sogan-batik">{script.period}</p>
+                      <div className="relative p-6">
+                        {/* Header with Glyph */}
+                        <div className="text-center mb-6">
+                          <motion.div
+                            className="relative mb-4"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center mb-4 shadow-2xl">
+                              <span className="text-4xl text-white font-cultural">
+                                {script.glyph}
+                              </span>
+                            </div>
+                            {/* Floating particles effect */}
+                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-white/30 rounded-full animate-pulse"></div>
+                            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white/20 rounded-full animate-pulse delay-300"></div>
+                          </motion.div>
+                          
+                          <h3 className="text-xl font-bold text-white mb-3 font-cultural">
+                            {script.name}
+                          </h3>
+                          
+                          <div className="flex items-center justify-center gap-2 text-sm text-white/80 mb-4">
+                            <MapPin className="w-4 h-4" />
+                            <span>{script.region}</span>
+                          </div>
                         </div>
-                        <div>
-                          <span className="font-medium text-indigo-lurik">Sistem:</span>
-                          <p className="text-sogan-batik">{script.writingSystem}</p>
+
+                        {/* Content */}
+                        <div className="space-y-4">
+                          <p className="text-sm text-white/70 leading-relaxed">
+                            {script.description}
+                          </p>
+
+                          {/* Metadata */}
+                          <div className="grid grid-cols-2 gap-4 text-xs">
+                            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                              <span className="font-medium text-white block mb-1">Periode:</span>
+                              <p className="text-white/80">{script.period}</p>
+                            </div>
+                            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                              <span className="font-medium text-white block mb-1">Sistem:</span>
+                              <p className="text-white/80">{script.writingSystem}</p>
+                            </div>
+                          </div>
+
+                          {/* Status Badge */}
+                          <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                            <span className={cn(
+                              "inline-flex items-center gap-2 px-3 py-2 rounded-full text-xs font-semibold border transition-all duration-300",
+                              script.status === 'active' 
+                                ? 'bg-green-500/20 text-green-300 border-green-500/30' :
+                              script.status === 'revitalized' 
+                                ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' :
+                                'bg-orange-500/20 text-orange-300 border-orange-500/30'
+                            )}>
+                              <div className={cn(
+                                "w-2 h-2 rounded-full",
+                                script.status === 'active' ? 'bg-green-400' :
+                                script.status === 'revitalized' ? 'bg-blue-400' : 'bg-orange-400'
+                              )}></div>
+                              {script.status === 'active' ? 'Aktif' :
+                               script.status === 'revitalized' ? 'Dihidupkan Kembali' : 'Terancam'}
+                            </span>
+
+                            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                              <BookOpen className="w-4 h-4 text-white" />
+                            </div>
+                          </div>
                         </div>
                       </div>
-
-                      {/* Status Badge */}
-                      <div className="flex items-center justify-between">
-                        <span className={cn(
-                          "inline-block px-3 py-1 rounded-full text-xs font-medium",
-                          script.status === 'active' ? 'bg-jade-tenun text-gabus-pualam' :
-                          script.status === 'revitalized' ? 'bg-giring-emas text-indigo-lurik' :
-                          'bg-sogan-batik text-gabus-pualam'
-                        )}>
-                          {script.status === 'active' ? 'Aktif' :
-                           script.status === 'revitalized' ? 'Dihidupkan Kembali' : 'Terancam'}
-                        </span>
-
-                        <IconBadge size="sm" variant="accent">
-                          <BookOpen size={12} />
-                        </IconBadge>
-                      </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </div>
                 </Link>
               </motion.div>
             ))}
@@ -241,12 +249,14 @@ export function Learn() {
               animate="animate"
               className="text-center py-16"
             >
-              <div className="text-6xl mb-4 text-sogan-batik/30">🔍</div>
-              <h3 className="text-xl font-semibold text-indigo-lurik mb-2">
+              <div className="w-24 h-24 mx-auto bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
+                <div className="text-4xl text-white/50">🔍</div>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4">
                 Tidak ada aksara yang ditemukan
               </h3>
-              <p className="text-sogan-batik">
-                Coba ubah kata kunci pencarian atau filter yang dipilih
+              <p className="text-white/70 max-w-md mx-auto">
+                Coba ubah kata kunci pencarian atau filter yang dipilih untuk menemukan aksara yang Anda cari
               </p>
             </motion.div>
           )}
