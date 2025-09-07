@@ -7,12 +7,12 @@
 **🌟 Peluk Tradisi, Gerakkan Teknologi 🌟**
 
 [![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.1.4-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.15.0-0055FF?style=flat-square&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.1.2-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.16-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.11.17-0055FF?style=flat-square&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-[🚀 Demo Live](https://aksaraya.netlify.app) • [📖 Dokumentasi](#-fitur-utama) • [🤝 Kontribusi](#-kontribusi) • [📜 Lisensi](#-lisensi)
+[🚀 Demo Live](https://aksaraya.vercel.app) • [📜 Lisensi](#-lisensi)
 
 </div>
 
@@ -61,17 +61,19 @@
 
 ### **Frontend Framework**
 - ⚛️ **React 19.1.1** - UI Library terbaru dengan concurrent features
-- 📘 **TypeScript 5.7.2** - Type safety dan developer experience
-- ⚡ **Vite 7.1.4** - Build tool super cepat dengan HMR
+- 📘 **TypeScript 5.8.3** - Type safety dan developer experience
+- ⚡ **Vite 7.1.2** - Build tool super cepat dengan HMR
 
 ### **Styling & Animation**
-- 🎨 **Tailwind CSS 3.4.17** - Utility-first CSS framework
+- 🎨 **Tailwind CSS 3.4.16** - Utility-first CSS framework
 - 🌈 **Custom Color Palette** - Tema budaya Nusantara
-- 🎭 **Framer Motion 11.15.0** - Smooth animations dan transitions
+- 🎭 **Framer Motion 11.11.17** - Smooth animations dan transitions
 
 ### **UI Components**
-- 🧩 **Headless UI** - Accessible component primitives
-- 🎯 **Lucide React** - Beautiful icon library
+- 🧩 **Headless UI 2.2.0** - Accessible component primitives
+- 🎯 **Lucide React 0.460.0** - Beautiful icon library
+- 🗺️ **React Leaflet 5.0.0** - Interactive maps untuk Atlas Budaya
+- 🎨 **Class Variance Authority** - Component styling variants
 - 📱 **Responsive Design** - Mobile-first approach
 
 ### **Development Tools**
@@ -129,7 +131,62 @@ npm run lint
 
 ```
 aksaraya/
-├── 📂 public/                 # Static assets
+├── public/
+│   ├── logo.png
+│   └── vite.svg
+├── src/
+│   ├── assets/
+│   │   └── patterns/
+│   │       └── batik-pattern.svg
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Container.tsx
+│   │   │   ├── Heading.tsx
+│   │   │   ├── IconBadge.tsx
+│   │   │   ├── PitaAksen.tsx
+│   │   │   └── Section.tsx
+│   │   ├── AppShell.tsx
+│   │   ├── LazyLoad.tsx
+│   │   ├── NavBar.tsx
+│   │   └── Navigation.tsx
+│   ├── data/
+│   │   ├── aksara.ts
+│   │   ├── community.ts
+│   │   ├── mapData.ts
+│   │   └── stories.ts
+│   ├── hooks/
+│   │   └── useAccessibility.ts
+│   ├── lib/
+│   │   ├── motion.ts
+│   │   └── utils.ts
+│   ├── pages/
+│   │   ├── Atlas.tsx
+│   │   ├── Credits.tsx
+│   │   ├── Home.tsx
+│   │   ├── Learn.tsx
+│   │   ├── Practice.tsx
+│   │   ├── Quiz.tsx
+│   │   ├── ScriptDetail.tsx
+│   │   └── Stories.tsx
+│   ├── styles/
+│   │   └── theme.css
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── .gitignore
+├── README.md
+├── eslint.config.js
+├── index.html
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts── 📂 public/                 # Static assets
 ├── 📂 src/
 │   ├── 📂 components/         # Reusable UI components
 │   │   ├── 📂 ui/            # Base UI components
@@ -214,8 +271,8 @@ Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE)
 <div align="center">
 
 [![GitHub](https://img.shields.io/badge/GitHub-hafisc-181717?style=flat-square&logo=github)](https://github.com/hafisc)
-[![Email](https://img.shields.io/badge/Email-Contact-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:contact@aksaraya.com)
-[![Website](https://img.shields.io/badge/Website-aksaraya.com-8B4513?style=flat-square&logo=safari&logoColor=white)](https://aksaraya.netlify.app)
+[![Email](https://img.shields.io/badge/Email-Contact-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:alhafiscloud@gmail.com)
+[![Website](https://img.shields.io/badge/Website-aksaraya.com-8B4513?style=flat-square&logo=safari&logoColor=white)](https://aksaraya.vercel.app)
 
 **🌟 Jika proyek ini bermanfaat, jangan lupa berikan ⭐ di GitHub! 🌟**
 
@@ -225,7 +282,7 @@ Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE)
 
 <div align="center">
 
-**🏛️ Dibuat dengan ❤️ untuk melestarikan warisan budaya Nusantara 🏛️**
+
 
 *"Setiap aksara yang kita pelajari adalah langkah menuju pelestarian budaya bangsa"*
 
