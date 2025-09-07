@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react'
 const navigationItems = [
   { name: 'Beranda', path: '/' },
   { name: 'Atlas', path: '/atlas' },
+  { name: 'Belajar', path: '/learn' },
   { name: 'Latihan', path: '/practice' },
   { name: 'Kuis', path: '/quiz' },
   { name: 'Cerita', path: '/stories' },

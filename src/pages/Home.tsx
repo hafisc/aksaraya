@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Map, Scroll, Sparkles, BookOpen, PenTool, Brain } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
@@ -40,13 +41,15 @@ export function Home() {
             </motion.p>
             
             <motion.div variants={fadeUp}>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-[#592B18] px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white"
-              >
-                Mulai Belajar
-              </motion.button>
+              <Link to="/learn">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white text-[#592B18] px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white"
+                >
+                  Mulai Belajar
+                </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
         </Container>

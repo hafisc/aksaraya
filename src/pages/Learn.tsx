@@ -46,7 +46,38 @@ export function Learn() {
 
   return (
     <div className="min-h-screen bg-[#592B18]">
-     
+      {/* Header */}
+      <Section className="bg-[#592B18] relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-16 left-20 text-8xl text-white rotate-12">📚</div>
+          <div className="absolute top-32 right-16 text-6xl text-white -rotate-12">ꦲ</div>
+          <div className="absolute bottom-20 left-1/4 text-7xl text-white rotate-45">✨</div>
+          <div className="absolute bottom-16 right-20 text-5xl text-white -rotate-30">🎓</div>
+        </div>
+        
+        <Container className="relative z-10">
+          <motion.div
+            variants={stagger}
+            initial="initial"
+            animate="animate"
+            className="py-8"
+          >
+            <motion.div variants={fadeUp} className="text-center">
+              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
+                <BookOpen className="w-6 h-6 text-white" />
+                <span className="text-white font-medium">Eksplorasi Aksara</span>
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 font-cultural">
+                Belajar Aksara Nusantara
+              </h1>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                Jelajahi kekayaan aksara tradisional Indonesia dari berbagai daerah dan periode sejarah
+              </p>
+            </motion.div>
+          </motion.div>
+        </Container>
+      </Section>
 
       {/* Search and Filter Section */}
       <Section className="bg-[#592B18] py-8">

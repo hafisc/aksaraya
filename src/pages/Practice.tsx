@@ -191,7 +191,7 @@ export function Practice() {
             variants={stagger}
             initial="initial"
             animate="animate"
-            className="py-20"
+            className="py-4"
           >
             <motion.div variants={fadeUp} className="mb-8">
               <Link 
@@ -219,7 +219,7 @@ export function Practice() {
         </Container>
       </Section>
 
-      <Section className="bg-[#592B18]">
+      <Section className="bg-[#592B18] -mt-24">
         <Container>
           <motion.div variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }}>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
