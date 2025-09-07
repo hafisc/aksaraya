@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play, Pause, RotateCcw, BookOpen, Users, Clock, MapPin, Volume2, Eye, EyeOff, Sparkles, ArrowLeft, Heart, Share2, Bookmark, Globe, Star } from 'lucide-react'
+import { Play, Pause, RotateCcw, BookOpen, Users, Clock, MapPin, Volume2, Eye, EyeOff, Sparkles, ArrowLeft, Heart, Share2, Bookmark, Globe } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
 import { Heading } from '../components/ui/Heading'

@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Clock, Trophy, Zap, RefreshCw, Star, Sparkles, Brain } from 'lucide-react'
+import { ArrowLeft, Clock, Trophy, Zap, RefreshCw, Sparkles, Brain } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
 import { Heading } from '../components/ui/Heading'
-import { Card } from '../components/ui/Card'
-import { IconBadge } from '../components/ui/IconBadge'
-import { PitaAksen } from '../components/ui/PitaAksen'
 import { aksaraScripts } from '../data/aksara'
-import { fadeUp, stagger } from '../lib/motion'
 import { cn } from '../lib/utils'
 
 interface Question {
@@ -33,7 +29,6 @@ export function Quiz() {
   const [timeLeft, setTimeLeft] = useState(30)
   const [timerEnabled, setTimerEnabled] = useState(false)
   const [answers, setAnswers] = useState<(number | null)[]>([])
-  const [showConfetti, setShowConfetti] = useState(false)
 
   const script = scriptId ? aksaraScripts.find(s => s.id === scriptId) : null
   const allScripts = script ? [script] : aksaraScripts
@@ -144,10 +139,6 @@ export function Quiz() {
       setTimeLeft(30)
     } else {
       setGameMode('results')
-      if (score >= 8) {
-        setShowConfetti(true)
-        setTimeout(() => setShowConfetti(false), 3000)
-      }
     }
   }
 
