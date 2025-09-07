@@ -223,34 +223,6 @@ aksaraya/
 
 ---
 
-## 🤝 Kontribusi
-
-Kami sangat menghargai kontribusi dari komunitas! Berikut cara Anda dapat berkontribusi:
-
-### **🐛 Bug Reports**
-- Gunakan GitHub Issues untuk melaporkan bug
-- Sertakan langkah reproduksi yang jelas
-- Tambahkan screenshot jika memungkinkan
-
-### **✨ Feature Requests**
-- Diskusikan fitur baru di GitHub Discussions
-- Jelaskan use case dan manfaatnya
-- Pertimbangkan dampak terhadap performa
-
-### **💻 Code Contributions**
-1. Fork repository ini
-2. Buat branch untuk fitur Anda (`git checkout -b feature/AmazingFeature`)
-3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
-4. Push ke branch (`git push origin feature/AmazingFeature`)
-5. Buat Pull Request
-
-### **📝 Content Contributions**
-- Tambahkan aksara baru atau perbaiki yang sudah ada
-- Kontribusi cerita rakyat dan konten budaya
-- Perbaiki terjemahan dan penjelasan
-
----
-
 ## 📜 Lisensi
 
 Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk detail lengkap.
@@ -272,7 +244,7 @@ Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE)
 
 [![GitHub](https://img.shields.io/badge/GitHub-hafisc-181717?style=flat-square&logo=github)](https://github.com/hafisc)
 [![Email](https://img.shields.io/badge/Email-Contact-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:alhafiscloud@gmail.com)
-[![Website](https://img.shields.io/badge/Website-aksaraya.com-8B4513?style=flat-square&logo=safari&logoColor=white)](https://aksaraya.vercel.app)
+[![Website](https://img.shields.io/badge/Website-aksaraya.vercel.app-8B4513?style=flat-square&logo=safari&logoColor=white)](https://aksaraya.vercel.app)
 
 **🌟 Jika proyek ini bermanfaat, jangan lupa berikan ⭐ di GitHub! 🌟**
 
