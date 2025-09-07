@@ -9,9 +9,6 @@ const navigationItems = [
   { name: 'Latihan', path: '/practice' },
   { name: 'Kuis', path: '/quiz' },
   { name: 'Cerita', path: '/stories' },
-  { name: 'Komunitas', path: '/community' },
-  { name: 'Tentang', path: '/about' },
-  { name: 'Kontribusi', path: '/contribute' },
 ]
 
 export function Navigation() {

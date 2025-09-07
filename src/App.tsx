@@ -7,10 +7,7 @@ import { Practice } from './pages/Practice'
 import { Quiz } from './pages/Quiz'
 import { Atlas } from './pages/Atlas'
 import { Stories } from './pages/Stories'
-import { Community } from './pages/Community'
-import { Contribute } from './pages/Contribute'
 import { Credits } from './pages/Credits'
-import { About } from './pages/About'
 
 function App() {
   return (
@@ -26,10 +23,7 @@ function App() {
           <Route path="quiz/:scriptId" element={<Quiz />} />
           <Route path="atlas" element={<Atlas />} />
           <Route path="stories" element={<Stories />} />
-          <Route path="community" element={<Community />} />
-          <Route path="contribute" element={<Contribute />} />
           <Route path="credits" element={<Credits />} />
-          <Route path="about" element={<About />} />
         </Route>
       </Routes>
     </Router>
