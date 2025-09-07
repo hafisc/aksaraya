@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, RotateCcw, Palette, Save, Award, Target, PenTool, Sparkles } from 'lucide-react'
@@ -30,9 +30,13 @@ export function Practice() {
   const [selectedCharacter, setSelectedCharacter] = useState<string>('')
   const [score, setScore] = useState<number | null>(null)
   const [feedback, setFeedback] = useState<string>('')
+  const [selectedScript, setSelectedScript] = useState<string | null>(scriptId || null)
+  const [showScriptSelection, setShowScriptSelection] = useState(!scriptId)
 
-  const script = scriptId ? aksaraScripts.find(s => s.id === scriptId) : null
-  const practiceCharacters = script?.basicCharacters.slice(0, 12) || ['ꦲ', 'ꦤ', 'ꦕ', 'ꦫ', 'ꦏ', 'ꦢ']
+  const script = selectedScript ? aksaraScripts.find(s => s.id === selectedScript) : null
+  const practiceCharacters = useMemo(() => {
+    return script?.basicCharacters.slice(0, 12) || []
+  }, [script?.basicCharacters])
 
   useEffect(() => {
     if (practiceCharacters.length > 0 && !selectedCharacter) {
@@ -136,25 +140,117 @@ export function Practice() {
   }
 
   const evaluateDrawing = () => {
-    // Simple scoring algorithm based on stroke count and coverage
+    if (strokes.length === 0) {
+      setScore(0)
+      setFeedback('Tidak ada goresan yang terdeteksi. Silakan coba menulis aksara.')
+      return
+    }
+
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    // Advanced evaluation algorithm with stricter criteria
     const strokeCount = strokes.length
-    const expectedStrokes = 3 // Simplified assumption
+    const totalPoints = strokes.reduce((sum, stroke) => sum + stroke.points.length, 0)
     
-    let baseScore = Math.max(0, 100 - Math.abs(strokeCount - expectedStrokes) * 20)
+    // Character-specific expected stroke counts for accuracy
+    const characterStrokeMap: { [key: string]: number } = {
+      'ꦲ': 3, 'ꦤ': 2, 'ꦕ': 2, 'ꦫ': 2, 'ꦏ': 2, 'ꦢ': 2,
+      'ᬅ': 3, 'ᬇ': 2, 'ᬉ': 3, 'ᬋ': 2, 'ᬍ': 2, 'ᬏ': 2,
+      'ᮃ': 2, 'ᮅ': 3, 'ᮇ': 2, 'ᮉ': 2, 'ᮋ': 3, 'ᮍ': 2
+    }
     
-    // Add randomness for demo purposes
-    const variation = Math.random() * 20 - 10
-    const finalScore = Math.max(0, Math.min(100, baseScore + variation))
+    const expectedStrokes = characterStrokeMap[selectedCharacter] || 3
     
+    // 1. Stroke Count Accuracy (30 points max) - Very strict
+    let strokeScore = 0
+    if (strokeCount === expectedStrokes) {
+      strokeScore = 30
+    } else if (Math.abs(strokeCount - expectedStrokes) === 1) {
+      strokeScore = 15
+    } else if (Math.abs(strokeCount - expectedStrokes) === 2) {
+      strokeScore = 5
+    }
+    // More than 2 strokes off = 0 points
+    
+    // 2. Minimum Complexity Check (25 points max)
+    let complexityScore = 0
+    if (totalPoints >= 50) { // Minimum drawing effort
+      complexityScore = Math.min(25, totalPoints / 4)
+    }
+    
+    // 3. Canvas Coverage (20 points max) - Must use reasonable space
+    let minX = canvas.width, maxX = 0, minY = canvas.height, maxY = 0
+    strokes.forEach(stroke => {
+      stroke.points.forEach(point => {
+        minX = Math.min(minX, point.x)
+        maxX = Math.max(maxX, point.x)
+        minY = Math.min(minY, point.y)
+        maxY = Math.max(maxY, point.y)
+      })
+    })
+    
+    const usedWidth = maxX - minX
+    const usedHeight = maxY - minY
+    const coverageRatio = (usedWidth * usedHeight) / (canvas.width * canvas.height)
+    
+    let coverageScore = 0
+    if (coverageRatio >= 0.1 && coverageRatio <= 0.6) { // Reasonable size range
+      coverageScore = 20
+    } else if (coverageRatio >= 0.05 && coverageRatio <= 0.8) {
+      coverageScore = 10
+    }
+    // Too small or too large = poor score
+    
+    // 4. Stroke Quality (15 points max)
+    let qualityScore = 0
+    const avgPointsPerStroke = totalPoints / strokeCount
+    if (avgPointsPerStroke >= 8 && avgPointsPerStroke <= 50) { // Good stroke density
+      qualityScore = 15
+    } else if (avgPointsPerStroke >= 5 && avgPointsPerStroke <= 80) {
+      qualityScore = 8
+    }
+    
+    // 5. Form Completeness (10 points max)
+    let formScore = 0
+    if (strokeCount >= 2 && usedWidth > 20 && usedHeight > 20) {
+      formScore = 10
+    } else if (strokeCount >= 1 && (usedWidth > 15 || usedHeight > 15)) {
+      formScore = 5
+    }
+    
+    const finalScore = Math.max(0, strokeScore + complexityScore + coverageScore + qualityScore + formScore)
     setScore(Math.round(finalScore))
     
+    // Detailed feedback based on analysis
+    let feedback = ''
     if (finalScore >= 80) {
-      setFeedback('Excellent! Goresan Anda sangat baik.')
+      feedback = `Excellent! Skor: ${Math.round(finalScore)}%. Goresan Anda sangat baik dan sesuai dengan bentuk aksara ${selectedCharacter}.`
     } else if (finalScore >= 60) {
-      setFeedback('Bagus! Coba perhatikan urutan goresan.')
+      feedback = `Bagus! Skor: ${Math.round(finalScore)}%. `
+      if (strokeCount !== expectedStrokes) {
+        feedback += `Aksara ${selectedCharacter} membutuhkan ${expectedStrokes} goresan (Anda: ${strokeCount}). `
+      }
+      if (coverageScore < 15) {
+        feedback += `Perbesar ukuran tulisan. `
+      }
+    } else if (finalScore >= 40) {
+      feedback = `Cukup. Skor: ${Math.round(finalScore)}%. `
+      if (strokeCount !== expectedStrokes) {
+        feedback += `Gunakan ${expectedStrokes} goresan untuk ${selectedCharacter}. `
+      }
+      if (complexityScore < 15) {
+        feedback += `Tambahkan detail lebih banyak. `
+      }
+      if (coverageScore < 10) {
+        feedback += `Ukuran terlalu kecil atau besar. `
+      }
     } else {
-      setFeedback('Perlu latihan lagi. Perhatikan bentuk dasar aksara.')
+      feedback = `Perlu latihan lagi. Skor: ${Math.round(finalScore)}%. `
+      feedback += `Aksara ${selectedCharacter} membutuhkan ${expectedStrokes} goresan dengan bentuk yang lebih lengkap dan proporsional.`
     }
+    
+    setFeedback(feedback)
 
     // Save progress to localStorage
     const progress = JSON.parse(localStorage.getItem('aksara-progress') || '{}')
@@ -172,6 +268,95 @@ export function Practice() {
     link.download = `aksara-${selectedCharacter}-${Date.now()}.png`
     link.href = canvas.toDataURL()
     link.click()
+  }
+
+  const handleScriptSelect = (scriptId: string) => {
+    setSelectedScript(scriptId)
+    setShowScriptSelection(false)
+    setSelectedCharacter('')
+    clearCanvas()
+  }
+
+  // Show script selection if no script is selected
+  if (showScriptSelection) {
+    return (
+      <div className="min-h-screen bg-[#592B18]">
+        <Section className="bg-[#592B18] relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-16 left-20 text-8xl text-white rotate-12">📝</div>
+            <div className="absolute top-32 right-16 text-6xl text-white -rotate-12">ꦲ</div>
+            <div className="absolute bottom-20 left-1/4 text-7xl text-white rotate-45">ᮃ</div>
+            <div className="absolute bottom-16 right-20 text-5xl text-white -rotate-30">ᬅ</div>
+          </div>
+          
+          <Container className="relative z-10">
+            <motion.div
+              variants={stagger}
+              initial="initial"
+              animate="animate"
+              className="py-8"
+            >
+              <motion.div variants={fadeUp} className="text-center mb-12">
+                <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
+                  <PenTool className="w-6 h-6 text-white" />
+                  <span className="text-white font-medium">Pilih Aksara</span>
+                </div>
+                <Heading level={1} className="text-white mb-6 text-4xl lg:text-5xl" cultural>
+                  Pilih Aksara untuk Latihan
+                </Heading>
+                <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                  Pilih salah satu aksara tradisional Indonesia untuk memulai latihan menulis
+                </p>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {aksaraScripts.map((script) => (
+                  <motion.div
+                    key={script.id}
+                    variants={fadeUp}
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <button
+                      onClick={() => handleScriptSelect(script.id)}
+                      className="w-full text-left"
+                    >
+                      <div className="relative group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        <Card className="relative bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 overflow-hidden h-full">
+                          <div className="p-6">
+                            <div className="text-center mb-4">
+                              <div className="w-16 h-16 mx-auto bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center mb-4 shadow-2xl">
+                                <span className="text-3xl text-white font-cultural">
+                                  {script.glyph}
+                                </span>
+                              </div>
+                              <h3 className="text-lg font-bold text-white mb-2 font-cultural">
+                                {script.name}
+                              </h3>
+                              <p className="text-sm text-white/70 mb-4">
+                                {script.region}
+                              </p>
+                            </div>
+                            
+                            <div className="text-center">
+                              <span className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-xs text-white/80">
+                                <Target className="w-3 h-3" />
+                                {script.basicCharacters.length} karakter
+                              </span>
+                            </div>
+                          </div>
+                        </Card>
+                      </div>
+                    </button>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </Container>
+        </Section>
+      </div>
+    )
   }
 
   return (

@@ -114,7 +114,7 @@ export function Stories() {
                   <Heading level={1} cultural className="text-white mb-8 text-5xl lg:text-6xl font-bold">
                     Cerita & Folklor Nusantara
                   </Heading>
-                  <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-8">
+                  <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed mb-8">
                     Jelajahi kekayaan cerita tradisional Nusantara dalam aksara aslinya dengan pengalaman membaca yang interaktif dan mendalam
                   </p>
                   
@@ -126,9 +126,9 @@ export function Stories() {
                         placeholder="Cari cerita berdasarkan judul, daerah, atau ringkasan..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full px-6 py-4 pl-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                        className="w-full px-6 py-4 pl-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
                       />
-                      <Globe className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/70" />
+                      <Globe className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white" />
                     </div>
                   </div>
                 </motion.div>
@@ -146,7 +146,7 @@ export function Stories() {
                     onClick={resetFilters}
                     variant="ghost"
                     size="sm"
-                    className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl px-4 py-2 transition-all duration-200"
+                    className="text-white hover:text-white hover:bg-white/20 rounded-xl px-4 py-2 transition-all duration-200"
                   >
                     <RotateCcw className="w-4 h-4 mr-2" />
                     Reset Filter
@@ -188,7 +188,7 @@ export function Stories() {
                             <div className="flex items-start justify-between mb-4">
                               <div className="flex-1">
                                 <h3 className="text-xl font-bold text-white mb-2">{story.title}</h3>
-                                <div className="flex items-center gap-2 text-sm text-white/80 mb-2">
+                                <div className="flex items-center gap-2 text-sm text-white mb-2">
                                   <MapPin className="w-4 h-4" />
                                   <span>{story.region}</span>
                                 </div>
@@ -201,7 +201,7 @@ export function Stories() {
                               </motion.div>
                             </div>
                             
-                            <p className="text-white/70 text-sm mb-4 line-clamp-3 flex-grow">
+                            <p className="text-white text-sm mb-4 line-clamp-3 flex-grow">
                               {story.summary}
                             </p>
                             
@@ -219,7 +219,7 @@ export function Stories() {
                               )}
                             </div>
                             
-                            <div className="flex items-center justify-between text-xs text-white/60">
+                            <div className="flex items-center justify-between text-xs text-white">
                               <div className="flex items-center gap-4">
                                 <div className="flex items-center gap-1">
                                   <Clock className="w-3 h-3" />
@@ -268,12 +268,12 @@ export function Stories() {
                     <BookOpen className="w-12 h-12 text-white/50" />
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-2">Tidak ada cerita ditemukan</h3>
-                  <p className="text-white/70 mb-6">Coba ubah filter atau reset pencarian untuk menemukan cerita lainnya</p>
+                  <p className="text-white mb-6">Coba ubah filter atau reset pencarian untuk menemukan cerita lainnya</p>
                   <Button
                     onClick={resetFilters}
                     variant="ghost"
                     size="sm"
-                    className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl px-4 py-2 transition-all duration-200"
+                    className="text-white hover:text-white hover:bg-white/20 rounded-xl px-4 py-2 transition-all duration-200"
                   >
                     Reset Filter
                   </Button>
@@ -287,7 +287,7 @@ export function Stories() {
                 transition={{ delay: 0.6 }}
                 className="text-center mt-16"
               >
-                <div className="inline-flex items-center gap-3 text-white/60">
+                <div className="inline-flex items-center gap-3 text-white">
                   <div className="w-12 h-px bg-gradient-to-r from-transparent to-white/30"></div>
                   <Sparkles className="w-5 h-5" />
                   <span className="text-sm font-medium">Warisan Sastra Nusantara</span>
@@ -334,11 +334,11 @@ export function Stories() {
                       <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 cultural">
                         {selectedStory.title}
                       </h1>
-                      <div className="text-2xl lg:text-3xl text-white/80 mb-6 font-cultural">
+                      <div className="text-2xl lg:text-3xl text-white mb-6 font-cultural">
                         {selectedStory.titleOriginal}
                       </div>
                       
-                      <div className="flex flex-wrap items-center justify-center gap-6 text-white/80">
+                      <div className="flex flex-wrap items-center justify-center gap-6 text-white">
                         <div className="flex items-center gap-2">
                           <MapPin className="w-5 h-5" />
                           <span className="font-medium">{selectedStory.region}</span>
@@ -373,11 +373,11 @@ export function Stories() {
                           </Button>
                           <div>
                             <h3 className="text-white font-semibold">Audio Narasi</h3>
-                            <p className="text-white/70 text-sm">Dengarkan cerita dalam bahasa asli</p>
+                            <p className="text-white text-sm">Dengarkan cerita dalam bahasa asli</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <Volume2 className="w-5 h-5 text-white/70" />
+                          <Volume2 className="w-5 h-5 text-white" />
                           <div className="w-24 h-2 bg-white/20 rounded-full">
                             <div className="w-3/4 h-full bg-white rounded-full"></div>
                           </div>
@@ -409,7 +409,7 @@ export function Stories() {
                           className={`${
                             currentSection === id
                               ? 'bg-white text-[#592B18] hover:bg-white/90'
-                              : 'text-white/80 hover:text-white hover:bg-white/20 border-white/30'
+                              : 'text-white hover:text-white hover:bg-white/20 border-white/30'
                           } transition-all duration-300 rounded-xl px-6 py-3 flex items-center gap-2`}
                         >
                           <Icon className="w-4 h-4" />
@@ -433,7 +433,7 @@ export function Stories() {
                         className={`${
                           showOriginal
                             ? 'bg-white text-[#592B18] hover:bg-white/90'
-                            : 'text-white/80 hover:text-white hover:bg-white/20 border-white/30'
+                            : 'text-white hover:text-white hover:bg-white/20 border-white/30'
                         } transition-all duration-300 rounded-xl px-4 py-2 flex items-center gap-2`}
                       >
                         <Eye className="w-4 h-4" />
@@ -445,7 +445,7 @@ export function Stories() {
                         className={`${
                           showTransliteration
                             ? 'bg-white text-[#592B18] hover:bg-white/90'
-                            : 'text-white/80 hover:text-white hover:bg-white/20 border-white/30'
+                            : 'text-white hover:text-white hover:bg-white/20 border-white/30'
                         } transition-all duration-300 rounded-xl px-4 py-2 flex items-center gap-2`}
                       >
                         <EyeOff className="w-4 h-4" />
@@ -473,21 +473,21 @@ export function Stories() {
                                   onClick={() => toggleFavorite(selectedStory.id)}
                                   variant="ghost"
                                   size="sm"
-                                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl p-2"
+                                  className="text-white hover:text-white hover:bg-white/20 rounded-xl p-2"
                                 >
                                   <Heart className={`w-5 h-5 ${favoriteStories.includes(selectedStory.id) ? 'text-red-400 fill-current' : 'text-white'}`} />
                                 </Button>
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl p-2"
+                                  className="text-white hover:text-white hover:bg-white/20 rounded-xl p-2"
                                 >
                                   <Share2 className="w-5 h-5" />
                                 </Button>
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl p-2"
+                                  className="text-white hover:text-white hover:bg-white/20 rounded-xl p-2"
                                 >
                                   <Bookmark className="w-5 h-5" />
                                 </Button>
@@ -497,7 +497,7 @@ export function Stories() {
                             {showOriginal && (
                               <div className="mb-6 p-6 bg-white/5 rounded-2xl">
                                 <h3 className="text-lg font-semibold text-white mb-4">Aksara Asli</h3>
-                                <p className="text-2xl leading-relaxed text-white/90 font-cultural">
+                                <p className="text-2xl leading-relaxed text-white font-cultural">
                                   {selectedStory.originalText}
                                 </p>
                               </div>
@@ -506,7 +506,7 @@ export function Stories() {
                             {showTransliteration && (
                               <div className="mb-6 p-6 bg-white/5 rounded-2xl">
                                 <h3 className="text-lg font-semibold text-white mb-4">Transliterasi</h3>
-                                <p className="text-lg leading-relaxed text-white/80 italic">
+                                <p className="text-lg leading-relaxed text-white italic">
                                   {selectedStory.transliteration}
                                 </p>
                               </div>
@@ -514,7 +514,7 @@ export function Stories() {
                             
                             <div className="p-6 bg-white/5 rounded-2xl">
                               <h3 className="text-lg font-semibold text-white mb-4">Terjemahan</h3>
-                              <p className="text-lg leading-relaxed text-white/90">
+                              <p className="text-lg leading-relaxed text-white">
                                 {selectedStory.translation}
                               </p>
                             </div>
@@ -524,7 +524,7 @@ export function Stories() {
                                 <Sparkles className="w-5 h-5 text-yellow-400" />
                                 Pesan Moral
                               </h3>
-                              <p className="text-white/90 leading-relaxed">
+                              <p className="text-white leading-relaxed">
                                 {selectedStory.moralLesson}
                               </p>
                             </div>
@@ -549,9 +549,9 @@ export function Stories() {
                                     </div>
                                     <div className="flex-1">
                                       <h3 className="text-lg font-semibold text-white mb-1">{character.name}</h3>
-                                      <div className="text-white/80 mb-2 font-cultural">{character.nameOriginal}</div>
-                                      <div className="text-sm text-white/60 mb-2">{character.role}</div>
-                                      <p className="text-white/80 leading-relaxed">{character.description}</p>
+                                      <div className="text-white mb-2 font-cultural">{character.nameOriginal}</div>
+                                      <div className="text-sm text-white mb-2">{character.role}</div>
+                                      <p className="text-white leading-relaxed">{character.description}</p>
                                     </div>
                                   </div>
                                 </motion.div>
@@ -564,26 +564,26 @@ export function Stories() {
                           <div className="space-y-6">
                             <h2 className="text-2xl font-bold text-white mb-6">Konteks Budaya</h2>
                             <div className="p-6 bg-white/5 rounded-2xl">
-                              <p className="text-lg leading-relaxed text-white/90 mb-6">
+                              <p className="text-lg leading-relaxed text-white mb-6">
                                 {selectedStory.culturalContext}
                               </p>
                               
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="p-4 bg-white/5 rounded-xl">
                                   <h4 className="font-semibold text-white mb-2">Asal Daerah</h4>
-                                  <p className="text-white/80">{selectedStory.region}</p>
+                                  <p className="text-white">{selectedStory.region}</p>
                                 </div>
                                 <div className="p-4 bg-white/5 rounded-xl">
                                   <h4 className="font-semibold text-white mb-2">Jenis Aksara</h4>
-                                  <p className="text-white/80 capitalize">{selectedStory.aksara}</p>
+                                  <p className="text-white capitalize">{selectedStory.aksara}</p>
                                 </div>
                                 <div className="p-4 bg-white/5 rounded-xl">
                                   <h4 className="font-semibold text-white mb-2">Kategori</h4>
-                                  <p className="text-white/80">{storyCategories.find(c => c.id === selectedStory.category)?.name}</p>
+                                  <p className="text-white">{storyCategories.find(c => c.id === selectedStory.category)?.name}</p>
                                 </div>
                                 <div className="p-4 bg-white/5 rounded-xl">
                                   <h4 className="font-semibold text-white mb-2">Tingkat Kesulitan</h4>
-                                  <p className="text-white/80">{difficultyLevels.find(d => d.id === selectedStory.difficulty)?.name}</p>
+                                  <p className="text-white">{difficultyLevels.find(d => d.id === selectedStory.difficulty)?.name}</p>
                                 </div>
                               </div>
                             </div>
@@ -597,7 +597,7 @@ export function Stories() {
                       {/* Story Summary */}
                       <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6">
                         <h3 className="text-lg font-semibold text-white mb-4">Ringkasan</h3>
-                        <p className="text-white/80 leading-relaxed text-sm">
+                        <p className="text-white leading-relaxed text-sm">
                           {selectedStory.summary}
                         </p>
                       </div>
@@ -617,7 +617,7 @@ export function Stories() {
                                 className="p-3 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 transition-all duration-200"
                               >
                                 <h4 className="text-white font-medium text-sm mb-1">{story.title}</h4>
-                                <p className="text-white/60 text-xs">{story.region}</p>
+                                <p className="text-white text-xs">{story.region}</p>
                               </motion.div>
                             ))}
                         </div>

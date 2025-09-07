@@ -71,7 +71,7 @@ export function Learn() {
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 font-cultural">
                 Belajar Aksara Nusantara
               </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed">
                 Jelajahi kekayaan aksara tradisional Indonesia dari berbagai daerah dan periode sejarah
               </p>
             </motion.div>
@@ -94,7 +94,7 @@ export function Learn() {
                       placeholder="Cari aksara, wilayah, atau deskripsi..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-white/30 focus:border-white/40 text-white placeholder-white/60 backdrop-blur-sm"
+                      className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-white/30 focus:border-white/40 text-white placeholder-white backdrop-blur-sm"
                     />
                   </div>
 
@@ -152,7 +152,7 @@ export function Learn() {
 
             {/* Results Count */}
             <motion.div variants={fadeUp} className="text-center mb-8">
-              <div className="inline-flex items-center gap-3 text-white/80">
+              <div className="inline-flex items-center gap-3 text-white">
                 <div className="w-8 h-px bg-gradient-to-r from-transparent to-white/30"></div>
                 <Sparkles className="w-4 h-4" />
                 <span className="text-sm font-medium">
@@ -215,7 +215,7 @@ export function Learn() {
                             {script.name}
                           </h3>
                           
-                          <div className="flex items-center justify-center gap-2 text-sm text-white/80 mb-4">
+                          <div className="flex items-center justify-center gap-2 text-sm text-white mb-4">
                             <MapPin className="w-4 h-4" />
                             <span>{script.region}</span>
                           </div>
@@ -223,7 +223,7 @@ export function Learn() {
 
                         {/* Content */}
                         <div className="space-y-4">
-                          <p className="text-sm text-white/70 leading-relaxed">
+                          <p className="text-sm text-white leading-relaxed">
                             {script.description}
                           </p>
 
@@ -231,11 +231,11 @@ export function Learn() {
                           <div className="grid grid-cols-2 gap-4 text-xs">
                             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
                               <span className="font-medium text-white block mb-1">Periode:</span>
-                              <p className="text-white/80">{script.period}</p>
+                              <p className="text-white">{script.period}</p>
                             </div>
                             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
                               <span className="font-medium text-white block mb-1">Sistem:</span>
-                              <p className="text-white/80">{script.writingSystem}</p>
+                              <p className="text-white">{script.writingSystem}</p>
                             </div>
                           </div>
 
@@ -285,7 +285,7 @@ export function Learn() {
               <h3 className="text-xl font-semibold text-white mb-4">
                 Tidak ada aksara yang ditemukan
               </h3>
-              <p className="text-white/70 max-w-md mx-auto">
+              <p className="text-white max-w-md mx-auto">
                 Coba ubah kata kunci pencarian atau filter yang dipilih untuk menemukan aksara yang Anda cari
               </p>
             </motion.div>
