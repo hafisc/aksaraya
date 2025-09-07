@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Menu, X, BookOpen } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 const navigationItems = [
   { name: 'Beranda', path: '/' },
@@ -22,7 +22,11 @@ export function Navigation() {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <BookOpen className="h-8 w-8 text-white" />
+              <img 
+                src="/logo.png" 
+                alt="" 
+                className="h-8 w-8 object-contain rounded-lg"
+              />
               <span className="text-xl font-bold text-white font-cultural">
                 Aksaraya
               </span>

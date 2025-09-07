@@ -15,7 +15,7 @@ export function AppShell() {
             © 2025 Aksaraya. Hak Cipta Dilindungi.
             </p>
             <p className="text-xs mt-2 text-white/70">
-              hafis.cloud
+              <a href="https://hafis.cloud" target="_blank" rel="noopener noreferrer">Mohammad Al Hafis H</a>
             </p>
           </div>
         </div>

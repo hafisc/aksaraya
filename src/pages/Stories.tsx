@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play, Pause, RotateCcw, BookOpen, Users, Clock, MapPin, Volume2, Eye, EyeOff } from 'lucide-react'
+import { Play, Pause, RotateCcw, BookOpen, Users, Clock, MapPin, Volume2, Eye, EyeOff, Sparkles, ArrowLeft, Heart, Share2, Bookmark, Globe, Star } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
 import { Heading } from '../components/ui/Heading'
@@ -17,13 +17,19 @@ export function Stories() {
   const [showOriginal, setShowOriginal] = useState(true)
   const [showTransliteration, setShowTransliteration] = useState(false)
   const [currentSection, setCurrentSection] = useState<'story' | 'characters' | 'cultural'>('story')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [favoriteStories, setFavoriteStories] = useState<string[]>([])
   
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const filteredStories = stories.filter(story => {
     const categoryMatch = !activeCategory || story.category === activeCategory
     const difficultyMatch = !activeDifficulty || story.difficulty === activeDifficulty
-    return categoryMatch && difficultyMatch
+    const searchMatch = !searchQuery || 
+      story.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.summary.toLowerCase().includes(searchQuery.toLowerCase())
+    return categoryMatch && difficultyMatch && searchMatch
   })
 
   const handlePlayPause = () => {
@@ -40,6 +46,34 @@ export function Stories() {
   const resetFilters = () => {
     setActiveCategory(null)
     setActiveDifficulty(null)
+    setSearchQuery('')
+  }
+
+  const toggleFavorite = (storyId: string) => {
+    setFavoriteStories(prev => 
+      prev.includes(storyId) 
+        ? prev.filter(id => id !== storyId)
+        : [...prev, storyId]
+    )
+  }
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'beginner': return 'bg-green-100 text-green-800'
+      case 'intermediate': return 'bg-yellow-100 text-yellow-800'
+      case 'advanced': return 'bg-red-100 text-red-800'
+      default: return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'folklore': return '📚'
+      case 'legend': return '🏔️'
+      case 'myth': return '⚡'
+      case 'historical': return '🏛️'
+      default: return '📖'
+    }
   }
 
   useEffect(() => {
@@ -52,366 +86,550 @@ export function Stories() {
   }, [selectedStory])
 
   return (
-    <Section className="min-h-screen">
-      <Container>
-        <div className="text-center mb-8">
-          <Heading level={1} cultural className="mb-4">
-            Cerita & Folklor Nusantara
-          </Heading>
-          <p className="text-sogan-batik text-lg max-w-3xl mx-auto">
-            Jelajahi kekayaan cerita tradisional Nusantara dalam aksara aslinya. 
-            Setiap cerita menyimpan nilai-nilai luhur dan kebijaksanaan leluhur.
-          </p>
-        </div>
-
-        {!selectedStory ? (
-          <>
-            {/* Filters */}
-            <div className="mb-8 space-y-4">
-              <div className="flex flex-wrap gap-2 justify-center">
-                <Button
-                  variant={activeCategory === null ? 'primary' : 'secondary'}
-                  size="sm"
-                  onClick={() => setActiveCategory(null)}
+    <div className="min-h-screen bg-gradient-to-br from-[#592B18] via-[#6B3423] to-[#4A2317]">
+      {!selectedStory ? (
+        <>
+          <Section className="bg-gradient-to-br from-[#592B18] via-[#6B3423] to-[#4A2317] relative overflow-hidden pt-24 pb-12">
+            {/* Enhanced background decorative elements */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-20 left-16 text-8xl text-white rotate-12 animate-pulse">📚</div>
+              <div className="absolute top-32 right-20 text-6xl text-white -rotate-12 animate-bounce">ꦲ</div>
+              <div className="absolute bottom-20 left-1/4 text-7xl text-white rotate-45 animate-pulse">ᮃ</div>
+              <div className="absolute bottom-16 right-16 text-5xl text-white -rotate-30 animate-bounce">ᬅ</div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-9xl text-white/5 rotate-12">✨</div>
+            </div>
+            
+            <Container className="relative z-10">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ staggerChildren: 0.1 }}
+              >
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center mb-16"
                 >
-                  Semua Kategori
-                </Button>
-                {storyCategories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={activeCategory === category.id ? 'primary' : 'secondary'}
-                    size="sm"
-                    onClick={() => setActiveCategory(category.id)}
-                  >
-                    {category.name}
-                  </Button>
-                ))}
-              </div>
-              
-              <div className="flex flex-wrap gap-2 justify-center">
-                <Button
-                  variant={activeDifficulty === null ? 'primary' : 'secondary'}
-                  size="sm"
-                  onClick={() => setActiveDifficulty(null)}
-                >
-                  Semua Level
-                </Button>
-                {difficultyLevels.map((level) => (
-                  <Button
-                    key={level.id}
-                    variant={activeDifficulty === level.id ? 'primary' : 'secondary'}
-                    size="sm"
-                    onClick={() => setActiveDifficulty(level.id)}
-                  >
-                    {level.name}
-                  </Button>
-                ))}
-              </div>
+                  
+                  <Heading level={1} cultural className="text-white mb-8 text-5xl lg:text-6xl font-bold">
+                    Cerita & Folklor Nusantara
+                  </Heading>
+                  <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-8">
+                    Jelajahi kekayaan cerita tradisional Nusantara dalam aksara aslinya dengan pengalaman membaca yang interaktif dan mendalam
+                  </p>
+                  
+                  {/* Search Bar */}
+                  <div className="max-w-2xl mx-auto mb-8">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        placeholder="Cari cerita berdasarkan judul, daerah, atau ringkasan..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full px-6 py-4 pl-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                      />
+                      <Globe className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/70" />
+                    </div>
+                  </div>
+                </motion.div>
 
+                
+              </motion.div>
+            </Container>
+          </Section>
+
+          <Section className="bg-[#592B18]">
+            <Container>
               {(activeCategory || activeDifficulty) && (
-                <div className="text-center">
-                  <Button variant="ghost" size="sm" onClick={resetFilters}>
+                <div className="text-center mb-8">
+                  <Button
+                    onClick={resetFilters}
+                    variant="ghost"
+                    size="sm"
+                    className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl px-4 py-2 transition-all duration-200"
+                  >
                     <RotateCcw className="w-4 h-4 mr-2" />
                     Reset Filter
                   </Button>
                 </div>
               )}
-            </div>
 
-            {/* Stories Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <AnimatePresence>
+              {/* Story Grid */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
                 {filteredStories.map((story, index) => {
-                  const aksaraData = aksaraScripts.find(a => a.id === story.aksara)
+                  const category = storyCategories.find(c => c.id === story.category)
+                  const difficulty = difficultyLevels.find(d => d.id === story.difficulty)
+                  const script = aksaraScripts.find(s => s.id === story.aksara)
+                  
                   return (
                     <motion.div
                       key={story.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ delay: index * 0.1 }}
+                      transition={{ delay: 0.1 * index }}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      className="cursor-pointer"
+                      onClick={() => setSelectedStory(story)}
                     >
-                      <Card 
-                        className="cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                        onClick={() => setSelectedStory(story)}
-                      >
-                        <div className="p-6">
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="flex-1">
-                              <h3 className="text-xl font-bold text-indigo-lurik mb-1">
-                                {story.title}
-                              </h3>
-                              <p className="text-sogan-batik text-sm mb-2 font-medium">
-                                {story.titleOriginal}
-                              </p>
-                            </div>
-                            <BookOpen className="w-6 h-6 text-jade-tenun" />
-                          </div>
-
-                          <p className="text-sm text-sogan-batik mb-4 line-clamp-3">
-                            {story.summary}
-                          </p>
-
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2 text-xs text-sogan-batik">
-                              <MapPin className="w-3 h-3" />
-                              <span>{story.region}</span>
+                      <div className="relative group">
+                        {/* Glowing background effect */}
+                        <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        
+                        <Card className="relative bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 overflow-hidden h-full">
+                          {/* Decorative corner gradient */}
+                          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full"></div>
+                          
+                          <div className="relative p-6 h-full flex flex-col">
+                            <div className="flex items-start justify-between mb-4">
+                              <div className="flex-1">
+                                <h3 className="text-xl font-bold text-white mb-2">{story.title}</h3>
+                                <div className="flex items-center gap-2 text-sm text-white/80 mb-2">
+                                  <MapPin className="w-4 h-4" />
+                                  <span>{story.region}</span>
+                                </div>
+                              </div>
+                              <motion.div 
+                                className="text-4xl ml-4 bg-white/10 rounded-full w-16 h-16 flex items-center justify-center"
+                                whileHover={{ rotate: 10, scale: 1.1 }}
+                              >
+                                {script?.glyph}
+                              </motion.div>
                             </div>
                             
-                            <div className="flex items-center justify-between">
-                              <span className="px-2 py-1 bg-giring-emas/20 text-sogan-batik text-xs rounded-full">
-                                {aksaraData?.name || story.aksara}
-                              </span>
-                              <span className={`px-2 py-1 text-xs rounded-full ${
-                                story.difficulty === 'beginner' ? 'bg-jade-tenun/20 text-jade-tenun' :
-                                story.difficulty === 'intermediate' ? 'bg-giring-emas/20 text-sogan-batik' :
-                                'bg-indigo-lurik/20 text-indigo-lurik'
-                              }`}>
-                                {difficultyLevels.find(d => d.id === story.difficulty)?.name}
-                              </span>
+                            <p className="text-white/70 text-sm mb-4 line-clamp-3 flex-grow">
+                              {story.summary}
+                            </p>
+                            
+                            <div className="flex flex-wrap gap-2 mb-4">
+                              {category && (
+                                <span className="px-3 py-1 bg-white/20 text-white text-xs rounded-full font-medium flex items-center gap-1">
+                                  <span>{getCategoryIcon(story.category)}</span>
+                                  {category.name}
+                                </span>
+                              )}
+                              {difficulty && (
+                                <span className={`px-3 py-1 text-xs rounded-full font-medium ${getDifficultyColor(story.difficulty)}`}>
+                                  {difficulty.name}
+                                </span>
+                              )}
+                            </div>
+                            
+                            <div className="flex items-center justify-between text-xs text-white/60">
+                              <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  <span>5-10 menit</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <Users className="w-3 h-3" />
+                                  <span>{story.characters.length} karakter</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <motion.button
+                                  whileHover={{ scale: 1.2 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    toggleFavorite(story.id)
+                                  }}
+                                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                                >
+                                  <Heart className={`w-4 h-4 ${favoriteStories.includes(story.id) ? 'text-red-400 fill-current' : 'text-white'}`} />
+                                </motion.button>
+                                <motion.div
+                                  whileHover={{ scale: 1.2 }}
+                                  className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center"
+                                >
+                                  <BookOpen className="w-4 h-4 text-white" />
+                                </motion.div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </div>
                     </motion.div>
                   )
                 })}
-              </AnimatePresence>
-            </div>
-          </>
-        ) : (
-          /* Story Reader */
-          <motion.div
+              </motion.div>
+
+              {filteredStories.length === 0 && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-center py-16"
+                >
+                  <div className="w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
+                    <BookOpen className="w-12 h-12 text-white/50" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Tidak ada cerita ditemukan</h3>
+                  <p className="text-white/70 mb-6">Coba ubah filter atau reset pencarian untuk menemukan cerita lainnya</p>
+                  <Button
+                    onClick={resetFilters}
+                    variant="ghost"
+                    size="sm"
+                    className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl px-4 py-2 transition-all duration-200"
+                  >
+                    Reset Filter
+                  </Button>
+                </motion.div>
+              )}
+              
+              {/* Bottom decorative element */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="text-center mt-16"
+              >
+                <div className="inline-flex items-center gap-3 text-white/60">
+                  <div className="w-12 h-px bg-gradient-to-r from-transparent to-white/30"></div>
+                  <Sparkles className="w-5 h-5" />
+                  <span className="text-sm font-medium">Warisan Sastra Nusantara</span>
+                  <Sparkles className="w-5 h-5" />
+                  <div className="w-12 h-px bg-gradient-to-l from-transparent to-white/30"></div>
+                </div>
+              </motion.div>
+            </Container>
+          </Section>
+        </>
+      ) : (
+        <AnimatePresence>
+          <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="max-w-4xl mx-auto"
+            exit={{ opacity: 0 }}
+            className="min-h-screen bg-gradient-to-br from-[#592B18] via-[#6B3423] to-[#4A2317]"
           >
-            {/* Story Header */}
-            <div className="mb-8">
-              <Button
-                variant="ghost"
-                onClick={() => setSelectedStory(null)}
-                className="mb-4"
-              >
-                ← Kembali ke Daftar Cerita
-              </Button>
-              
-              <div className="text-center mb-6">
-                <h1 className="text-3xl font-bold text-indigo-lurik mb-2">
-                  {selectedStory.title}
-                </h1>
-                <p className="text-xl text-sogan-batik mb-4 font-medium">
-                  {selectedStory.titleOriginal}
-                </p>
-                
-                <div className="flex items-center justify-center gap-4 text-sm text-sogan-batik">
-                  <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    <span>{selectedStory.region}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{difficultyLevels.find(d => d.id === selectedStory.difficulty)?.name}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Audio Controls */}
-              {selectedStory.audioUrl && (
-                <div className="flex justify-center mb-6">
-                  <div className="flex items-center gap-4 bg-gabus-pualam p-4 rounded-lg">
+            <Section className="pt-24 pb-12">
+              <Container>
+                <div className="max-w-6xl mx-auto">
+                  {/* Header with Back Button */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8"
+                  >
                     <Button
-                      variant="primary"
-                      size="sm"
-                      onClick={handlePlayPause}
+                      onClick={() => setSelectedStory(null)}
+                      variant="ghost"
+                      className="mb-6 px-6 py-3 bg-white/10 text-white rounded-2xl font-medium hover:bg-white/20 transition-all duration-300 flex items-center gap-3 backdrop-blur-md"
                     >
-                      {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                      <ArrowLeft className="w-5 h-5" />
+                      Kembali ke Daftar Cerita
                     </Button>
-                    <Volume2 className="w-4 h-4 text-sogan-batik" />
-                    <span className="text-sm text-sogan-batik">Narasi Audio</span>
-                    <audio ref={audioRef} src={selectedStory.audioUrl} />
-                  </div>
-                </div>
-              )}
-            </div>
+                    
+                    {/* Story Header */}
+                    <div className="text-center mb-8">
+                      <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 mb-6">
+                        <BookOpen className="w-6 h-6 text-white" />
+                        <span className="text-white font-medium">{getCategoryIcon(selectedStory.category)} {storyCategories.find(c => c.id === selectedStory.category)?.name}</span>
+                      </div>
+                      
+                      <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 cultural">
+                        {selectedStory.title}
+                      </h1>
+                      <div className="text-2xl lg:text-3xl text-white/80 mb-6 font-cultural">
+                        {selectedStory.titleOriginal}
+                      </div>
+                      
+                      <div className="flex flex-wrap items-center justify-center gap-6 text-white/80">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-5 h-5" />
+                          <span className="font-medium">{selectedStory.region}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock className="w-5 h-5" />
+                          <span>5-10 menit</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Users className="w-5 h-5" />
+                          <span>{selectedStory.characters.length} karakter</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
 
-            {/* Navigation Tabs */}
-            <div className="flex justify-center mb-8">
-              <div className="flex bg-gabus-pualam rounded-lg p-1">
-                <Button
-                  variant={currentSection === 'story' ? 'primary' : 'ghost'}
-                  size="sm"
-                  onClick={() => setCurrentSection('story')}
-                >
-                  Cerita
-                </Button>
-                <Button
-                  variant={currentSection === 'characters' ? 'primary' : 'ghost'}
-                  size="sm"
-                  onClick={() => setCurrentSection('characters')}
-                >
-                  Tokoh
-                </Button>
-                <Button
-                  variant={currentSection === 'cultural' ? 'primary' : 'ghost'}
-                  size="sm"
-                  onClick={() => setCurrentSection('cultural')}
-                >
-                  Budaya
-                </Button>
-              </div>
-            </div>
+                  {/* Audio Controls */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="mb-8"
+                  >
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <Button
+                            onClick={handlePlayPause}
+                            className="w-14 h-14 bg-white text-[#592B18] rounded-full hover:bg-white/90 transition-all duration-300 flex items-center justify-center"
+                          >
+                            {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-1" />}
+                          </Button>
+                          <div>
+                            <h3 className="text-white font-semibold">Audio Narasi</h3>
+                            <p className="text-white/70 text-sm">Dengarkan cerita dalam bahasa asli</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Volume2 className="w-5 h-5 text-white/70" />
+                          <div className="w-24 h-2 bg-white/20 rounded-full">
+                            <div className="w-3/4 h-full bg-white rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <audio ref={audioRef} className="hidden">
+                        <source src={selectedStory.audioUrl || "/audio/sample.mp3"} type="audio/mpeg" />
+                      </audio>
+                    </div>
+                  </motion.div>
 
-            <AnimatePresence mode="wait">
-              {currentSection === 'story' && (
-                <motion.div
-                  key="story"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                >
-                  {/* Text Display Controls */}
-                  <div className="flex justify-center gap-2 mb-6">
-                    <Button
-                      variant={showOriginal ? 'primary' : 'secondary'}
-                      size="sm"
-                      onClick={() => setShowOriginal(!showOriginal)}
-                    >
-                      {showOriginal ? <Eye className="w-4 h-4 mr-2" /> : <EyeOff className="w-4 h-4 mr-2" />}
-                      Aksara Asli
-                    </Button>
-                    <Button
-                      variant={showTransliteration ? 'primary' : 'secondary'}
-                      size="sm"
-                      onClick={() => setShowTransliteration(!showTransliteration)}
-                    >
-                      {showTransliteration ? <Eye className="w-4 h-4 mr-2" /> : <EyeOff className="w-4 h-4 mr-2" />}
-                      Transliterasi
-                    </Button>
-                  </div>
+                  {/* Content Navigation */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="mb-8"
+                  >
+                    <div className="flex flex-wrap gap-3 justify-center">
+                      {[
+                        { id: 'story', label: 'Cerita', icon: BookOpen },
+                        { id: 'characters', label: 'Karakter', icon: Users },
+                        { id: 'cultural', label: 'Budaya', icon: Globe }
+                      ].map(({ id, label, icon: Icon }) => (
+                        <Button
+                          key={id}
+                          onClick={() => setCurrentSection(id as 'story' | 'characters' | 'cultural')}
+                          variant={currentSection === id ? 'primary' : 'ghost'}
+                          className={`${
+                            currentSection === id
+                              ? 'bg-white text-[#592B18] hover:bg-white/90'
+                              : 'text-white/80 hover:text-white hover:bg-white/20 border-white/30'
+                          } transition-all duration-300 rounded-xl px-6 py-3 flex items-center gap-2`}
+                        >
+                          <Icon className="w-4 h-4" />
+                          {label}
+                        </Button>
+                      ))}
+                    </div>
+                  </motion.div>
 
-                  {/* Story Text */}
-                  <div className="space-y-6">
-                    {showOriginal && (
-                      <Card className="p-6 bg-gradient-to-br from-gabus-pualam to-white">
-                        <h3 className="text-lg font-semibold text-indigo-lurik mb-4">
-                          Teks Aksara Asli
-                        </h3>
-                        <p className="text-2xl leading-relaxed text-sogan-batik font-serif">
-                          {selectedStory.originalText}
-                        </p>
-                      </Card>
-                    )}
-
-                    {showTransliteration && (
-                      <Card className="p-6">
-                        <h3 className="text-lg font-semibold text-indigo-lurik mb-4">
-                          Transliterasi
-                        </h3>
-                        <p className="text-lg leading-relaxed text-sogan-batik italic">
-                          {selectedStory.transliteration}
-                        </p>
-                      </Card>
-                    )}
-
-                    <Card className="p-6">
-                      <h3 className="text-lg font-semibold text-indigo-lurik mb-4">
-                        Terjemahan
-                      </h3>
-                      <p className="text-lg leading-relaxed text-sogan-batik">
-                        {selectedStory.translation}
-                      </p>
-                    </Card>
-
-                    <Card className="p-6 bg-gradient-to-r from-jade-tenun/10 to-giring-emas/10">
-                      <h3 className="text-lg font-semibold text-indigo-lurik mb-4">
-                        Pesan Moral
-                      </h3>
-                      <p className="text-sogan-batik leading-relaxed">
-                        {selectedStory.moralLesson}
-                      </p>
-                    </Card>
-                  </div>
-                </motion.div>
-              )}
-
-              {currentSection === 'characters' && (
-                <motion.div
-                  key="characters"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                >
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {selectedStory.characters.map((character, index) => (
-                      <motion.div
-                        key={character.name}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
+                  {/* Text Display Options */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="mb-8"
+                  >
+                    <div className="flex flex-wrap gap-3 justify-center">
+                      <Button
+                        onClick={() => setShowOriginal(!showOriginal)}
+                        variant={showOriginal ? 'primary' : 'ghost'}
+                        className={`${
+                          showOriginal
+                            ? 'bg-white text-[#592B18] hover:bg-white/90'
+                            : 'text-white/80 hover:text-white hover:bg-white/20 border-white/30'
+                        } transition-all duration-300 rounded-xl px-4 py-2 flex items-center gap-2`}
                       >
-                        <Card className="p-6">
-                          <div className="flex items-start gap-3 mb-4">
-                            <Users className="w-6 h-6 text-jade-tenun mt-1" />
-                            <div>
-                              <h3 className="text-lg font-bold text-indigo-lurik">
-                                {character.name}
-                              </h3>
-                              <p className="text-sogan-batik font-medium">
-                                {character.nameOriginal}
+                        <Eye className="w-4 h-4" />
+                        Aksara Asli
+                      </Button>
+                      <Button
+                        onClick={() => setShowTransliteration(!showTransliteration)}
+                        variant={showTransliteration ? 'primary' : 'ghost'}
+                        className={`${
+                          showTransliteration
+                            ? 'bg-white text-[#592B18] hover:bg-white/90'
+                            : 'text-white/80 hover:text-white hover:bg-white/20 border-white/30'
+                        } transition-all duration-300 rounded-xl px-4 py-2 flex items-center gap-2`}
+                      >
+                        <EyeOff className="w-4 h-4" />
+                        Transliterasi
+                      </Button>
+                    </div>
+                  </motion.div>
+
+                  {/* Main Content */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+                  >
+                    {/* Story Content */}
+                    <div className="lg:col-span-2">
+                      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8">
+                        {currentSection === 'story' && (
+                          <div className="space-y-6">
+                            <div className="flex items-center justify-between mb-6">
+                              <h2 className="text-2xl font-bold text-white">Cerita</h2>
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  onClick={() => toggleFavorite(selectedStory.id)}
+                                  variant="ghost"
+                                  size="sm"
+                                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl p-2"
+                                >
+                                  <Heart className={`w-5 h-5 ${favoriteStories.includes(selectedStory.id) ? 'text-red-400 fill-current' : 'text-white'}`} />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl p-2"
+                                >
+                                  <Share2 className="w-5 h-5" />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-xl p-2"
+                                >
+                                  <Bookmark className="w-5 h-5" />
+                                </Button>
+                              </div>
+                            </div>
+                            
+                            {showOriginal && (
+                              <div className="mb-6 p-6 bg-white/5 rounded-2xl">
+                                <h3 className="text-lg font-semibold text-white mb-4">Aksara Asli</h3>
+                                <p className="text-2xl leading-relaxed text-white/90 font-cultural">
+                                  {selectedStory.originalText}
+                                </p>
+                              </div>
+                            )}
+                            
+                            {showTransliteration && (
+                              <div className="mb-6 p-6 bg-white/5 rounded-2xl">
+                                <h3 className="text-lg font-semibold text-white mb-4">Transliterasi</h3>
+                                <p className="text-lg leading-relaxed text-white/80 italic">
+                                  {selectedStory.transliteration}
+                                </p>
+                              </div>
+                            )}
+                            
+                            <div className="p-6 bg-white/5 rounded-2xl">
+                              <h3 className="text-lg font-semibold text-white mb-4">Terjemahan</h3>
+                              <p className="text-lg leading-relaxed text-white/90">
+                                {selectedStory.translation}
                               </p>
-                              <span className="inline-block px-2 py-1 bg-giring-emas/20 text-sogan-batik text-sm rounded-full mt-2">
-                                {character.role}
-                              </span>
+                            </div>
+                            
+                            <div className="p-6 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-2xl border border-yellow-500/20">
+                              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                                <Sparkles className="w-5 h-5 text-yellow-400" />
+                                Pesan Moral
+                              </h3>
+                              <p className="text-white/90 leading-relaxed">
+                                {selectedStory.moralLesson}
+                              </p>
                             </div>
                           </div>
-                          <p className="text-sogan-batik leading-relaxed">
-                            {character.description}
-                          </p>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
+                        )}
+                        
+                        {currentSection === 'characters' && (
+                          <div className="space-y-6">
+                            <h2 className="text-2xl font-bold text-white mb-6">Karakter dalam Cerita</h2>
+                            <div className="grid gap-4">
+                              {selectedStory.characters.map((character, index) => (
+                                <motion.div
+                                  key={index}
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: index * 0.1 }}
+                                  className="p-6 bg-white/5 rounded-2xl border border-white/10"
+                                >
+                                  <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                                      <Users className="w-6 h-6 text-white" />
+                                    </div>
+                                    <div className="flex-1">
+                                      <h3 className="text-lg font-semibold text-white mb-1">{character.name}</h3>
+                                      <div className="text-white/80 mb-2 font-cultural">{character.nameOriginal}</div>
+                                      <div className="text-sm text-white/60 mb-2">{character.role}</div>
+                                      <p className="text-white/80 leading-relaxed">{character.description}</p>
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {currentSection === 'cultural' && (
+                          <div className="space-y-6">
+                            <h2 className="text-2xl font-bold text-white mb-6">Konteks Budaya</h2>
+                            <div className="p-6 bg-white/5 rounded-2xl">
+                              <p className="text-lg leading-relaxed text-white/90 mb-6">
+                                {selectedStory.culturalContext}
+                              </p>
+                              
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="p-4 bg-white/5 rounded-xl">
+                                  <h4 className="font-semibold text-white mb-2">Asal Daerah</h4>
+                                  <p className="text-white/80">{selectedStory.region}</p>
+                                </div>
+                                <div className="p-4 bg-white/5 rounded-xl">
+                                  <h4 className="font-semibold text-white mb-2">Jenis Aksara</h4>
+                                  <p className="text-white/80 capitalize">{selectedStory.aksara}</p>
+                                </div>
+                                <div className="p-4 bg-white/5 rounded-xl">
+                                  <h4 className="font-semibold text-white mb-2">Kategori</h4>
+                                  <p className="text-white/80">{storyCategories.find(c => c.id === selectedStory.category)?.name}</p>
+                                </div>
+                                <div className="p-4 bg-white/5 rounded-xl">
+                                  <h4 className="font-semibold text-white mb-2">Tingkat Kesulitan</h4>
+                                  <p className="text-white/80">{difficultyLevels.find(d => d.id === selectedStory.difficulty)?.name}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
 
-              {currentSection === 'cultural' && (
-                <motion.div
-                  key="cultural"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                >
-                  <Card className="p-8 bg-gradient-to-br from-indigo-lurik/5 to-jade-tenun/5">
-                    <h3 className="text-2xl font-bold text-indigo-lurik mb-6 text-center">
-                      Konteks Budaya
-                    </h3>
-                    <p className="text-lg leading-relaxed text-sogan-batik mb-6">
-                      {selectedStory.culturalContext}
-                    </p>
-                    
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-white/50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-indigo-lurik mb-2">Kategori</h4>
-                        <p className="text-sogan-batik">
-                          {storyCategories.find(c => c.id === selectedStory.category)?.name}
+                    {/* Sidebar */}
+                    <div className="space-y-6">
+                      {/* Story Summary */}
+                      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6">
+                        <h3 className="text-lg font-semibold text-white mb-4">Ringkasan</h3>
+                        <p className="text-white/80 leading-relaxed text-sm">
+                          {selectedStory.summary}
                         </p>
                       </div>
                       
-                      <div className="bg-white/50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-indigo-lurik mb-2">Aksara</h4>
-                        <p className="text-sogan-batik">
-                          {aksaraScripts.find(a => a.id === selectedStory.aksara)?.name || selectedStory.aksara}
-                        </p>
+                      {/* Related Stories */}
+                      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6">
+                        <h3 className="text-lg font-semibold text-white mb-4">Cerita Serupa</h3>
+                        <div className="space-y-3">
+                          {stories
+                            .filter(s => s.id !== selectedStory.id && s.category === selectedStory.category)
+                            .slice(0, 3)
+                            .map((story) => (
+                              <motion.div
+                                key={story.id}
+                                whileHover={{ scale: 1.02 }}
+                                onClick={() => setSelectedStory(story)}
+                                className="p-3 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 transition-all duration-200"
+                              >
+                                <h4 className="text-white font-medium text-sm mb-1">{story.title}</h4>
+                                <p className="text-white/60 text-xs">{story.region}</p>
+                              </motion.div>
+                            ))}
+                        </div>
                       </div>
                     </div>
-                  </Card>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                </div>
+              </Container>
+            </Section>
           </motion.div>
-        )}
-      </Container>
-    </Section>
+        </AnimatePresence>
+      )}
+    </div>
   )
 }

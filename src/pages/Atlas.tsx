@@ -227,15 +227,15 @@ export function Atlas() {
               transition={{ delay: 0.3 }}
               className="bg-white p-4 rounded-xl shadow-lg border border-gabus-pualam"
             >
-              <h4 className="font-semibold text-indigo-lurik mb-3">Legenda Wilayah</h4>
+              <h4 className="font-semibold text-gray-800 mb-3">Legenda Wilayah</h4>
               <div className="space-y-2">
                 {regions.map((region) => (
                   <div key={region} className="flex items-center gap-3">
                     <div 
-                      className="w-3 h-3 rounded-full border border-white shadow-sm"
+                      className="w-3 h-3 rounded-full border border-gray-300 shadow-sm"
                       style={{ backgroundColor: regionColors[region] }}
                     />
-                    <span className="text-sm text-sogan-batik">{region}</span>
+                    <span className="text-sm text-gray-700 font-medium">{region}</span>
                   </div>
                 ))}
               </div>
