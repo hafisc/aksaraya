@@ -147,7 +147,7 @@ export function Atlas() {
                 key={selectedLocation.id}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-putih-bersih p-6 rounded-xl shadow-lg border border-coklat-muda/20"
+                className="bg-[#592B18] p-6 rounded-xl shadow-lg border border-white/20"
               >
                 <div className="flex items-start gap-3 mb-4">
                   <div 

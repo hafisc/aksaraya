@@ -23,9 +23,9 @@ export function IconBadge({
   }
 
   const variantClasses = {
-    primary: 'bg-coklat-utama text-putih-bersih',
-    accent: 'bg-coklat-muda text-coklat-tua',
-    cultural: 'bg-coklat-tua text-putih-bersih'
+    primary: 'bg-[#592B18] text-white',
+    accent: 'bg-[#592B18] text-white',
+    cultural: 'bg-[#592B18] text-white'
   }
 
   return (

@@ -6,27 +6,27 @@
 
 /* Accessibility Styles */
 .high-contrast {
-  --color-coklat-utama: #000000;
-  --color-coklat-muda: #ffffff;
-  --color-coklat-tua: #000000;
-  --color-krem-hangat: #ffffff;
-  --color-putih-bersih: #ffffff;
+  --color-coklat-utama: #592B18;
+  --color-coklat-muda: #FFFFFF;
+  --color-coklat-tua: #592B18;
+  --color-krem-hangat: #FFFFFF;
+  --color-putih-bersih: #FFFFFF;
 }
 
 .high-contrast .bg-coklat-utama {
-  @apply bg-black text-white;
+  @apply bg-[#592B18] text-white;
 }
 
 .high-contrast .bg-coklat-muda {
-  @apply bg-white text-black;
+  @apply bg-[#592B18] text-white;
 }
 
 .high-contrast .text-coklat-tua {
-  @apply text-black;
+  @apply text-white;
 }
 
 .high-contrast .bg-putih-bersih {
-  @apply bg-white;
+  @apply bg-[#592B18];
 }
 
 /* Reduced Motion */
@@ -52,12 +52,12 @@
 
 /* Focus Visible Styles */
 .focus-visible *:focus-visible {
-  @apply outline-none ring-2 ring-coklat-muda ring-offset-2;
+  @apply outline-none ring-2 ring-white ring-offset-2;
 }
 
 /* Skip Link */
 .skip-link {
-  @apply absolute -top-10 left-4 bg-coklat-utama text-putih-bersih px-4 py-2 rounded-md z-50 transition-all;
+  @apply absolute -top-10 left-4 bg-[#592B18] text-white px-4 py-2 rounded-md z-50 transition-all;
 }
 
 .skip-link:focus {
@@ -66,20 +66,20 @@
 
 /* High Contrast Button States */
 .high-contrast button:hover {
-  @apply bg-gray-200 text-black;
+  @apply bg-[#592B18] text-white;
 }
 
 .high-contrast button:focus {
-  @apply ring-4 ring-yellow-400;
+  @apply ring-4 ring-white;
 }
 
 /* Loading States */
 .loading-skeleton {
-  @apply animate-pulse bg-gray-200 rounded;
+  @apply animate-pulse bg-[#592B18] rounded;
 }
 
 .high-contrast .loading-skeleton {
-  @apply bg-gray-800;
+  @apply bg-[#592B18];
 }
 
 :root {
@@ -96,8 +96,8 @@
 }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(139, 69, 19, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(139, 69, 19, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(89, 43, 24, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(89, 43, 24, 0.6); }
 }
 
 @keyframes shimmer {
@@ -161,15 +161,15 @@
 /* Neon Glow */
 .neon-glow {
   box-shadow: 
-    0 0 5px rgba(139, 69, 19, 0.5),
-    0 0 10px rgba(139, 69, 19, 0.5),
-    0 0 15px rgba(139, 69, 19, 0.5),
-    0 0 20px rgba(139, 69, 19, 0.5);
+    0 0 5px rgba(89, 43, 24, 0.5),
+    0 0 10px rgba(89, 43, 24, 0.5),
+    0 0 15px rgba(89, 43, 24, 0.5),
+    0 0 20px rgba(89, 43, 24, 0.5);
 }
 
 /* Gradient Text */
 .gradient-text {
-  background: linear-gradient(45deg, #8B4513, #D2B48C, #654321);
+  background: linear-gradient(45deg, #592B18, #FFFFFF, #592B18);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

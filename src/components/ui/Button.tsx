@@ -7,11 +7,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-giring-emas text-indigo-lurik hover:bg-giring-emas/90 focus-visible:ring-giring-emas',
-        secondary: 'bg-gabus-pualam text-sogan-batik border border-sogan-batik/20 hover:bg-sogan-batik/10 focus-visible:ring-sogan-batik',
-        outline: 'border border-giring-emas text-giring-emas hover:bg-giring-emas hover:text-indigo-lurik focus-visible:ring-giring-emas',
-        ghost: 'text-sogan-batik hover:bg-gabus-pualam focus-visible:ring-sogan-batik',
-        cultural: 'bg-gradient-to-r from-indigo-lurik to-jade-tenun text-gabus-pualam hover:from-indigo-lurik/90 hover:to-jade-tenun/90 focus-visible:ring-jade-tenun'
+        primary: 'bg-[#592B18] text-white hover:bg-[#592B18]/90 focus-visible:ring-white',
+        secondary: 'bg-[#592B18] text-white border border-white/20 hover:bg-white/10 focus-visible:ring-white',
+        outline: 'border border-white text-white hover:bg-white hover:text-[#592B18] focus-visible:ring-white',
+        ghost: 'text-white hover:bg-white/20 focus-visible:ring-white',
+        cultural: 'bg-[#592B18] text-white hover:bg-[#592B18]/90 focus-visible:ring-white'
       },
       size: {
         sm: 'h-8 px-3 text-sm',

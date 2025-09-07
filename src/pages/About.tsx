@@ -64,11 +64,11 @@ export function About() {
           transition={{ delay: 0.2 }}
           className="mb-16"
         >
-          <Card className="p-8 bg-coklat-utama text-putih-bersih">
+          <Card className="p-8 bg-[#592B18] text-white">
             <div className="text-center">
               <Heart className="w-12 h-12 mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-4">Misi Pelestarian Budaya</h2>
-              <p className="text-putih-bersih/90 text-lg leading-relaxed max-w-4xl mx-auto">
+              <p className="text-white/90 text-lg leading-relaxed max-w-4xl mx-auto">
                 Aksaraya hadir dengan misi mulia untuk menyelamatkan warisan aksara Nusantara dari kepunahan. 
                 Kami percaya bahwa setiap goresan aksara adalah jembatan yang menghubungkan masa lalu dengan masa depan, 
                 menyimpan kebijaksanaan leluhur yang tak ternilai harganya.

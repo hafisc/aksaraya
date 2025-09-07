@@ -14,7 +14,7 @@ export function Section({ children, className, id, background = 'default' }: Sec
   const backgroundClasses = {
     default: '',
     pattern: 'pattern-batik',
-    brown: 'bg-coklat-utama'
+    brown: 'bg-[#592B18]'
   }
 
   return (
