@@ -1,4 +1,4 @@
-# 🏛️ Aksaraya - Nusantara Interactive Script Learning Platform
+# 🏛️ Aksaraya - Platform Interaktif Aksara Nusantara)
 
 <div align="center">
 
